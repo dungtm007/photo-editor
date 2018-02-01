@@ -149,7 +149,12 @@ $(function () {
 	});
 	
 	$("#imageToEdit").on("load", function() {
+		
 		loadBackgroundToSamples();
+		
+		// Show image and editor section
+		$("#imageToEdit").show();
+		$("#editor").show();
 	});
 	
 	

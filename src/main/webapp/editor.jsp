@@ -50,7 +50,7 @@
 	<body>
 	
 		<!--Firebase-->
-		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+		<!-- <script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>  -->
 		<script>
 			// Initialize Firebase
 			// ...
@@ -73,7 +73,6 @@
 				
 					<li class="dropdown">
 						<a id="signInLink" href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="signInText">Sign in</span> <span class="caret"></span></a>
-						
 						
 						<ul id="login-dp" class="dropdown-menu">
 							<li>

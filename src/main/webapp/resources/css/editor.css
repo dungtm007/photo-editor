@@ -40,6 +40,7 @@ input[type='range'] {
 	width: 31%;
 	/* border: 2px solid gray; */
 	padding: 25px 17px;
+	display: none;
 }
 
 #imageStage {
@@ -51,7 +52,7 @@ input[type='range'] {
 #imageToEdit {
 	/* height: 570px; */
 	/* visibility: hidden; */
-	/* display: none; */
+	display: none;
 	width: 67%; 
 }
 
