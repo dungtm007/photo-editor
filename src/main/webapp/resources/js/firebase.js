@@ -62,6 +62,7 @@ var initApp = function() {
 		user.getIdToken().then(function(accessToken) {
 		  
 			console.log("Auth State Changed");
+			console.log("Token: " + accessToken);
 			
 			// Save user to DB (if not signed in)
 			var data = {
@@ -76,14 +77,22 @@ var initApp = function() {
 				.done(function(response) {
 					console.log("success");
 					photoEditorApp.userId = response.userId;
+					photoEditorApp.curUser = user;
+					
+					if (photoEditorApp.currentLoadMethod) {
+						console.log("Call photoEditorApp.currentLoadMethod");
+						console.log(photoEditorApp.currentLoadMethod);
+						photoEditorApp.currentLoadMethod();
+					}
+					
 				})
 				.fail(function() {
 					console.log("error");
 				});
-			
+	
 			
 			// Do similarly with getFbUserDataCallback
-			$("#loginControls").hide();
+			/*$("#loginControls").hide();
 			$("#loginUser").show();
 		  
 			$("#userName1").text(user.displayName); // Name 
@@ -92,7 +101,8 @@ var initApp = function() {
 			
 			$("#signInText").hide();
 			$("#login-dp").removeClass("dropdown-menu").addClass("hidden-menu");
-			$("#features-dp").removeClass("hidden-menu").addClass("dropdown-menu");
+			$("#features-dp").removeClass("hidden-menu").addClass("dropdown-menu");*/
+			
 		});
 	  } else {
 			// User is signed out.

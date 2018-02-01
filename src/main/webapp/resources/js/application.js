@@ -6,9 +6,11 @@
 if (!photoEditorApp) {
 	var photoEditorApp = {
 		userId: null,
-		curPhotoId: null
+		curPhotoId: null,
+		curUser: null
 	};
 }
+
 
 if (!photoEditorApp.defaultValues) {
 	photoEditorApp.defaultValues = {

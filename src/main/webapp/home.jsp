@@ -26,8 +26,29 @@
 	<!-- Font Awesome -->
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	
+	<!-- Photo Editor App -->
+	<script src="<c:url value='/resources/js/application.js'/>"></script>
+	
+	<!-- Firebase libs -->
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-auth.js"></script> <!--authentication-->
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-database.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-messaging.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-storage.js"></script>
+	
+	<!-- Firebase UI -->
+	<script src="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.js"></script>
+	<link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/2.5.1/firebaseui.css" />
+	
+	<!-- Firebase -->
+	<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
+	
+	<!-- Application's FireBase -->
+	<script src="<c:url value='/resources/js/firebase.js'/>"></script>
 	
 	<link rel="stylesheet" href="<c:url value='/resources/css/cover.css'/>" />
+	
 	
 </head>
 
@@ -81,7 +102,8 @@
       </div>
 
     </div>
-
+    <script src="<c:url value='/resources/js/home.js'/>"></script>
+    
 </body>
 
 

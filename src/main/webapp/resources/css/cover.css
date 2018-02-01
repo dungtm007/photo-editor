@@ -179,6 +179,7 @@ body {
 	font-family: billabong, 'billabongregular';
 	font-size: 65pt;
 	color: #FFFF33;
+    text-shadow: 8px 10px 15px rgba(200,200,0,0.4);
 }
 
 #mainSection {

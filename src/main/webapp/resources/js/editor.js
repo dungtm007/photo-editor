@@ -2,6 +2,28 @@
 
 $(function () {
 	
+	if (!photoEditorApp.currentLoadMethod) {
+		photoEditorApp.currentLoadMethod = loadHeaderUserSection;
+	}
+	
+	function loadHeaderUserSection() {
+		
+		if (photoEditorApp.curUser) {
+		
+			// Do similarly with getFbUserDataCallback
+			$("#loginControls").hide();
+			$("#loginUser").show();
+		  
+			$("#userName1").text(photoEditorApp.curUser.displayName); // Name 
+			$("#userAvatar1").attr("src", photoEditorApp.curUser.photoURL); // Avatar
+			$("#userAvatar1").show(); // Avatar
+			
+			$("#signInText").hide();
+			$("#login-dp").removeClass("dropdown-menu").addClass("hidden-menu");
+			$("#features-dp").removeClass("hidden-menu").addClass("dropdown-menu");
+		}
+	}
+	
 	function loadImageToCanvas() {
 		
 		var canvas = $("#canvas")[0];
