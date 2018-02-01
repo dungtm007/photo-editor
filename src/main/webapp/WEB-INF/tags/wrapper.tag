@@ -1,4 +1,5 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -7,7 +8,7 @@
 		<title>Wrapper</title>
 		
 		<!-- jQuery -->
-		<script src="jquery-3.3.1.min.js"></script>
+		<script src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>
 		
 		<!-- Bootstrap -->
 		<!-- Latest compiled and minified CSS -->
@@ -25,7 +26,7 @@
 		<!-- Load Facebook SDK -->
 		
 		<!-- Photo Editor App -->
-		<script src="application.js"></script>
+		<script src="<c:url value='/resources/js/application.js'/>"></script>
 		
 		<!-- Firebase libs -->
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase-app.js"></script>
@@ -43,11 +44,11 @@
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 		
 		<!-- Application's FireBase -->
-		<script src="firebase.js"></script>
+		<script src="<c:url value='/resources/js/firebase.js'/>"></script>
 		
 		<!-- Application's CSS -->
-		<link rel="stylesheet" href="editor.css" />
-		<link rel="stylesheet" href="login-section.css" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/editor.css'/>" />
+		<link rel="stylesheet" href="<c:url value='/resources/css/login-section.css'/>" />
 		
 	</head>
 	<body>
