@@ -5,20 +5,19 @@
 
 <t:wrapper>
     
+    <link rel="stylesheet" href="<c:url value='/resources/css/editor.css'/>" />
+    
     <div id="uploadDiv">
 			Upload image: <input type="file" id="uploadedFile" />
 	</div>
 	
-	
 	<main>
 		<div id="editor">
-		
 			<div>
 				<ul id="editMode">
 					<li id="preset">Preset</li>
 					<li id="custom">Custom</li>
 				</ul>
-				
 			</div>
 			
 			<div id="editorControls">

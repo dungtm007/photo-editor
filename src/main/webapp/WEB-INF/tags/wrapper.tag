@@ -47,7 +47,6 @@
 		<script src="<c:url value='/resources/js/firebase.js'/>"></script>
 		
 		<!-- Application's CSS -->
-		<link rel="stylesheet" href="<c:url value='/resources/css/editor.css'/>" />
 		<link rel="stylesheet" href="<c:url value='/resources/css/login-section.css'/>" />
 		
 	</head>
