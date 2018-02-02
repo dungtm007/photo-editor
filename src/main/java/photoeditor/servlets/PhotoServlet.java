@@ -44,15 +44,14 @@ public class PhotoServlet extends HttpServlet {
 		String photoTitle = request.getParameter("photoTitle");
 		String imageBase64 = request.getParameter("imageData");
 		
-		byte[] imageData = Base64.getDecoder().decode(imageBase64);
+		//byte[] imageData = Base64.getDecoder().decode(imageBase64);
 		
-		//Photo photo = new Photo(userId, imageData);
 		Photo photo = photoService.find(photoId);
 		if (photo == null) {
-			photo = new Photo(userId, imageData, photoTitle);
+			photo = new Photo(userId, imageBase64, photoTitle);
 		}
 		else {
-			photo.setImageData(imageData);
+			photo.setImageData(imageBase64);
 		}
 		photoService.save(photo);
 		

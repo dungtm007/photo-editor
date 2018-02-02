@@ -4,6 +4,7 @@ $(function () {
 	
 	if (!photoEditorApp.currentLoadMethod) {
 		photoEditorApp.currentLoadMethod = loadHeaderUserSection;
+		photoEditorApp.currentUnloadMethod = unloadHeaderUserSection;
 	}
 	
 	function loadHeaderUserSection() {
@@ -22,6 +23,19 @@ $(function () {
 			$("#login-dp").removeClass("dropdown-menu").addClass("hidden-menu");
 			$("#features-dp").removeClass("hidden-menu").addClass("dropdown-menu");
 		}
+	}
+	
+	function unloadHeaderUserSection() {
+		
+		$("#loginUser").hide();
+		$("#loginControls").show();
+		
+		$("#userName1").text(""); // Name 
+		$("#userAvatar1").hide(); // Avatar
+		
+		$("#signInText").show();
+		$("#login-dp").removeClass("hidden-menu").addClass("dropdown-menu");
+		$("#features-dp").removeClass("dropdown-menu").addClass("hidden-menu");
 	}
 	
 	function loadImageToCanvas() {
@@ -88,7 +102,7 @@ $(function () {
 		// Save user to DB
 		var data = {
 				"userId": photoEditorApp.userId,
-				"imageData": dataURL.split(',')[1],
+				"imageData": dataURL, // dataURL.split(',')[1],
 				"photoId": photoEditorApp.curPhotoId || -1,
 				"photoTitle": title
 		};
@@ -199,6 +213,8 @@ $(function () {
 			  
 			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
 			// var token = result.credential.accessToken;
+			var token = result.credential.accessToken;
+			console.log("Token: " + token.substring(0, 10));
 			console.log("Sign in successfully");			
 			
 		}).catch(function(error) {

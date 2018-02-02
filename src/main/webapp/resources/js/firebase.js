@@ -62,7 +62,7 @@ var initApp = function() {
 		user.getIdToken().then(function(accessToken) {
 		  
 			console.log("Auth State Changed");
-			console.log("Token: " + accessToken);
+			console.log("Auth State Token: " + accessToken.substring(0, 10));
 			
 			// Save user to DB (if not signed in)
 			var data = {
@@ -81,7 +81,6 @@ var initApp = function() {
 					
 					if (photoEditorApp.currentLoadMethod) {
 						console.log("Call photoEditorApp.currentLoadMethod");
-						console.log(photoEditorApp.currentLoadMethod);
 						photoEditorApp.currentLoadMethod();
 					}
 					
@@ -89,43 +88,18 @@ var initApp = function() {
 				.fail(function() {
 					console.log("error");
 				});
-	
-			
-			// Do similarly with getFbUserDataCallback
-			/*$("#loginControls").hide();
-			$("#loginUser").show();
-		  
-			$("#userName1").text(user.displayName); // Name 
-			$("#userAvatar1").attr("src", user.photoURL); // Avatar
-			$("#userAvatar1").show(); // Avatar
-			
-			$("#signInText").hide();
-			$("#login-dp").removeClass("dropdown-menu").addClass("hidden-menu");
-			$("#features-dp").removeClass("hidden-menu").addClass("dropdown-menu");*/
-			
 		});
 	  } else {
 			// User is signed out.
-
-			$("#loginUser").hide();
-			$("#loginControls").show();
-			
-			$("#userName1").text(""); // Name 
-			$("#userAvatar1").hide(); // Avatar
-			//$("#userAvatar1").attr("src", ""); // Avatar
-			
-			$("#signInText").show();
-			$("#login-dp").removeClass("hidden-menu").addClass("dropdown-menu");
-			$("#features-dp").removeClass("dropdown-menu").addClass("hidden-menu");
+		  	if (photoEditorApp.currentUnloadMethod) {
+		  		console.log("Call photoEditorApp.currentUnloadMethod");
+		  		photoEditorApp.currentUnloadMethod();
+		  	}
 	  }
 	}, function(error) {
 	  console.log(error);
 	});
 };
-
-// $(function() {
-	// initApp();
-// });
 
 window.addEventListener('load', function() {
 	initApp();
