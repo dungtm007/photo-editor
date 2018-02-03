@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>
-		Project
-	</title>
-	<link rel="stylesheet" type="text/css" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="project.css">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-</head>
-<body>
+<%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<link rel="stylesheet" type="text/css" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>" />
+<t:wrapper>
+
 <div class="container">
   <div class="buttongroup">
     <button type="button" class="btn btn-info">Original</button>
@@ -22,7 +19,7 @@
   </figure>
   <figure>
     <img src="https://images.unsplash.com/photo-1443890923422-7819ed4101c0?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Териберка, gorod Severomorsk <small>Russia</small></figcaption>
+    <figcaption>Ð¢ÐµÑ€Ð¸Ð±ÐµÑ€ÐºÐ°, gorod Severomorsk <small>Russia</small></figcaption>
   </figure>
   <figure>
     <img src="https://images.unsplash.com/photo-1445964047600-cdbdb873673d?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
@@ -48,7 +45,7 @@
   </figure>
   <figure>
     <img src="https://images.unsplash.com/photo-1443890923422-7819ed4101c0?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Териберка, gorod Severomorsk <small>Russia</small></figcaption>
+    <figcaption>Ð¢ÐµÑ€Ð¸Ð±ÐµÑ€ÐºÐ°, gorod Severomorsk <small>Russia</small></figcaption>
   </figure>
   <figure>
     <img src="https://images.unsplash.com/photo-1445964047600-cdbdb873673d?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
@@ -71,45 +68,6 @@
 </div>
 </div>
 </div>
+</t:wrapper>
+<script src="<c:url value='/resources/js/review.js'/>"></script>
 
-<script>
-popup = {
-  init: function(){
-    $('figure').click(function(){
-      popup.open($(this));
-    });
-    
-    $(document).on('click', '.popup img', function(){
-      return false;
-    }).on('click', '.popup', function(){
-      popup.close();
-    })
-  },
-  open: function($figure) {
-    $('.gallery').addClass('pop');
-    $popup = $('<div class="popup" />').appendTo($('body'));
-    $fig = $figure.clone().appendTo($('.popup'));
-    $bg = $('<div class="bg" />').appendTo($('.popup'));
-    $close = $('<div class="close"><svg><use xlink:href="#close"></use></svg></div>').appendTo($fig);
-    $shadow = $('<div class="shadow" />').appendTo($fig);
-    src = $('img', $fig).attr('src');
-    $shadow.css({backgroundImage: 'url(' + src + ')'});
-    $bg.css({backgroundImage: 'url(' + src + ')'});
-    setTimeout(function(){
-      $('.popup').addClass('pop');
-    }, 10);
-  },
-  close: function(){
-    $('.gallery, .popup').removeClass('pop');
-    setTimeout(function(){
-      $('.popup').remove()
-    }, 100);
-  }
-}
-
-popup.init()
-
-</script>
-
-</body>
-</html>
