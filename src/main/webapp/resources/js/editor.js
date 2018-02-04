@@ -95,7 +95,8 @@ $(function () {
 	});
 	
 	$("#btnSaveModified").on("click", function () {
-		
+
+		debugger;
 		var title = "";
 		while(!title) {
 			title = prompt("Title of image (required)?");	
@@ -103,7 +104,7 @@ $(function () {
 				return;
 			}
 		}
-		
+	
 		var dataURL = createCanvasImageData();
 		
 		// Save user to DB

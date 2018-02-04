@@ -43,6 +43,13 @@ public class PhotoServlet extends HttpServlet {
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, getServletContext());
         //https://stackoverflow.com/questions/43654488/spring-boot-inject-bean-into-httpservlet
     }
+    
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	// TODO Auto-generated method stub
+    	//super.doGet(req, resp);
+    	System.out.println("photo do get");
+    }
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -70,6 +77,8 @@ public class PhotoServlet extends HttpServlet {
 		
 		int photoId = Integer.parseInt(request.getParameter("photoId"));
 		String photoTitle = request.getParameter("photoTitle");
+		System.out.println(photoTitle);
+		//System.out.println(request.getParameter("imageData"));
 		String imageBase64 = request.getParameter("imageData");
 		
 		Photo photo = photoService.find(photoId);

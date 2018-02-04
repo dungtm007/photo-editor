@@ -50,6 +50,7 @@ var uiConfig = {
 // Track the Auth state across all your pages
 var initApp = function() {
 	firebase.auth().onAuthStateChanged(function(user) {
+		debugger;
 	  if (user) {
 		// User is signed in.
 		var displayName = user.displayName;

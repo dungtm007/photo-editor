@@ -21,10 +21,19 @@
     <servlet-name>PhotoServlet</servlet-name>
     <servlet-class>photoeditor.servlets.PhotoServlet</servlet-class>
   </servlet>
+
   <servlet>
     <description></description>
     <display-name>TokenServlet</display-name>
     <servlet-name>TokenServlet</servlet-name>
     <servlet-class>photoeditor.servlets.TokenServlet</servlet-class>
+</servlet>
+
+  <servlet>
+    <description></description>
+    <display-name>ReviewServlet</display-name>
+    <servlet-name>/ReviewServlet</servlet-name>
+    <servlet-class>photoeditor.servlets.ReviewServlet</servlet-class>
+
   </servlet>
 </web-app>
