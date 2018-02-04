@@ -16,24 +16,23 @@
     <button type="button" class="btn btn-info">Modified</button>
   </div>
 	<div class="row">
-<div class="gallery">
-
-<c:forEach var="photo" items="${photos}">
-
-  <figure>
-    <img src="${photo.imageData}" alt="error" />
-    <figcaption>${photo.title} 
-    	<small>${photo.created}</small>
-    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
-    	<a>Share</a>
-    </figcaption>
-    
-  </figure>
-  
- </c:forEach>
- 
-</div>
-</div>
+		<div class="gallery">
+		<c:forEach var="photo" items="${photos}">
+		  <figure>
+		    <img src="${photo.imageData}" alt="${photo.title}" />
+		    <figcaption>${photo.title} 
+		    	<small>${photo.created}</small>
+		    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
+		    	<a>Share</a>
+		    </figcaption>
+		  </figure>
+		  <figure>
+		    <img src="https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&fit=crop&fm=jpg&h=200&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=300" alt="" />
+		    <figcaption>Daytona Beach <small>United States</small></figcaption>
+		  </figure>
+		 </c:forEach>
+		</div>
+	</div>
 </div>
 </t:wrapper>
 <script src="<c:url value='/resources/js/review.js'/>"></script>

@@ -11,7 +11,7 @@ popup = {
     })
   },
   open: function($figure) {
-    $('.gallery').addClass('pop');
+//    $('.gallery').addClass('pop');
     $popup = $('<div class="popup" />').appendTo($('body'));
     $fig = $figure.clone().appendTo($('.popup'));
     $bg = $('<div class="bg" />').appendTo($('.popup'));
@@ -20,8 +20,6 @@ popup = {
     src = $('img', $fig).attr('src');
     $shadow.css({backgroundImage: 'url(' + src + ')'});
     $bg.css({backgroundImage: 'url(' + src + ')'});
-    
-    
     
     setTimeout(function(){
       $('.popup').addClass('pop');
