@@ -1,5 +1,5 @@
 popup = {
-  init: function(){
+  init: function() {
     $('figure').click(function(){
       popup.open($(this));
     });
@@ -29,7 +29,27 @@ popup = {
     setTimeout(function(){
       $('.popup').remove()
     }, 100);
-  }
+  },
+  
+  linkDownload: function(){
+	  
+  },
+  
+}
+
+function createCanvasImageData() {
+	
+	var m_canvas = document.createElement('canvas');
+	m_canvas.width = $("#imageToEdit").width();
+	m_canvas.height = $("#imageToEdit").height();
+	
+	var ctx = m_canvas.getContext('2d');
+	ctx.filter = $("#imageToEdit").css("filter");
+	var img = document.getElementById("imageToEdit");
+	
+	ctx.drawImage(img, 0, 0 , m_canvas.width, m_canvas.height);
+	var dataURL = m_canvas.toDataURL('image/jpeg');
+	return dataURL;
 }
 
 popup.init()

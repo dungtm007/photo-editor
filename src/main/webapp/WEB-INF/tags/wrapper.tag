@@ -87,7 +87,7 @@
 							<li>
 								 <div class="row">
 										<div class="feature-item">
-											Saved Photos
+										 <a href="review">Saved Photos</a>	
 										</div>
 										<div id="signOut" class="feature-item">
 											Sign out

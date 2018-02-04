@@ -17,58 +17,21 @@
   </div>
 	<div class="row">
 <div class="gallery">
+
+<c:forEach var="photo" items="${photos}">
+
   <figure>
-    <img src="https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Daytona Beach <small>United States</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1443890923422-7819ed4101c0?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Ð¢ÐµÑ€Ð¸Ð±ÐµÑ€ÐºÐ°, gorod Severomorsk <small>Russia</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1445964047600-cdbdb873673d?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>
-      Bad Pyrmont <small>Deutschland</small>
+    <img src="${photo.imageData}" alt="error" />
+    <figcaption>${photo.title} 
+    	<small>${photo.created}</small>
+    	<a>Download</a>
+    	<a>Share</a>
     </figcaption>
+    
   </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1439798060585-62ab242d7724?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Yellowstone National Park <small>United States</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1440339738560-7ea831bf5244?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Quiraing, Portree <small>United Kingdom</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1441906363162-903afd0d3d52?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Highlands <small>United States</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Daytona Beach <small>United States</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1443890923422-7819ed4101c0?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Ð¢ÐµÑ€Ð¸Ð±ÐµÑ€ÐºÐ°, gorod Severomorsk <small>Russia</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1445964047600-cdbdb873673d?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>
-      Bad Pyrmont <small>Deutschland</small>
-    </figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1439798060585-62ab242d7724?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Yellowstone National Park <small>United States</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1440339738560-7ea831bf5244?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Quiraing, Portree <small>United Kingdom</small></figcaption>
-  </figure>
-  <figure>
-    <img src="https://images.unsplash.com/photo-1441906363162-903afd0d3d52?crop=entropy&fit=crop&fm=jpg&h=400&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=600" alt="" />
-    <figcaption>Highlands <small>United States</small></figcaption>
-  </figure>
+  
+ </c:forEach>
+ 
 </div>
 </div>
 </div>

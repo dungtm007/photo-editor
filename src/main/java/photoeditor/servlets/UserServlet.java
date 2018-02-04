@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -93,15 +94,22 @@ public class UserServlet extends HttpServlet {
 					writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
 					return;
 				}
+				
 			}
 			else {
 				activeToken = new Token(user.getId(), token, true);
 				activeToken.setOs(HeaderParser.getOs(request));
 				activeToken.setBrowser(HeaderParser.getBrowser(request));
 				activeToken.setIp(HeaderParser.getIp(request));
-				tokenService.save(activeToken);
+				tokenService.save(activeToken);				
+				
 			}
 		}
+		
+		if (request.getSession(false) == null) {
+			request.getSession();
+		}
+		request.getSession(false).setAttribute("userId", user.getId());
 		
 		JSONObject json = null;
 		try {
