@@ -6,6 +6,7 @@
 if (!photoEditorApp) {
 	var photoEditorApp = {
 		userId: null,
+		token: null,
 		curPhotoId: null,
 		curUser: null
 	};

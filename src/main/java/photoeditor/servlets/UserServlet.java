@@ -18,8 +18,12 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import photoeditor.domainclasses.Token;
 import photoeditor.domainclasses.User;
+import photoeditor.services.TokenService;
 import photoeditor.services.UserService;
+import photoeditor.utilities.HeaderParser;
+import photoeditor.utilities.TokenValidator;
 
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
@@ -28,6 +32,9 @@ public class UserServlet extends HttpServlet {
 	
 	@Autowired
     private UserService userService;
+	
+	@Autowired 
+	private TokenService tokenService;
 	
     public UserServlet() {
         super();
@@ -46,32 +53,62 @@ public class UserServlet extends HttpServlet {
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		String errorMsg = "";
+		PrintWriter writer = response.getWriter();
+		
 		String oauthProvider = request.getParameter("oauthProvider");
 		String oauthUid = request.getParameter("oauthUid");
 		String displayName = request.getParameter("displayName");
 		String email = request.getParameter("email");
 		String photoUrl = request.getParameter("photoUrl");
-	
+		String token = request.getParameter("token");
+		
+		// Validate token validity according to Firebase
+		if (!TokenValidator.verifyTokenFromFirebase(token)) {
+			errorMsg = "Unauthorized or Invalid token";
+			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
+			return;
+		}
+		
 		User user = userService.findByOauthUid(oauthUid);
-		if(user == null) 
-		{
+		Token activeToken = tokenService.findByToken(token);
+		
+		if(user == null) { // new user, new token
 			user = new User(oauthProvider, oauthUid, displayName, email, photoUrl);
 			userService.save(user);
+			activeToken = new Token(user.getId(), token, true);
+			activeToken.setOs(HeaderParser.getOs(request));
+			activeToken.setBrowser(HeaderParser.getBrowser(request));
+			activeToken.setIp(HeaderParser.getIp(request));
+			tokenService.save(activeToken);
+		}
+		else { // existed user, update new token if needed
+			if (activeToken != null) {
+				if (activeToken.getUserId() != user.getId() || !TokenValidator.validate(activeToken, request)) {
+					errorMsg = "Unauthorized or Invalid token";
+					writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
+					return;
+				}
+			}
+			else {
+				activeToken = new Token(user.getId(), token, true);
+				activeToken.setOs(HeaderParser.getOs(request));
+				activeToken.setBrowser(HeaderParser.getBrowser(request));
+				activeToken.setIp(HeaderParser.getIp(request));
+				tokenService.save(activeToken);
+			}
 		}
 		
-		response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");	
-		
-		//ServletOutputStream out = response.getOutputStream();
-		PrintWriter writer = response.getWriter();
-
 		JSONObject json = null;
 		try {
-			json = new JSONObject("{'result':'Success', 'userId':'" + user.getId() + "'}");
+			json = new JSONObject("{ 'result':'Success', 'userId':'" + user.getId() + "' }");
 		} catch (JSONException e) {
+			errorMsg = "Cannot parse result";
 			e.printStackTrace();
 		}
-		writer.print((json == null) ? "Error" : json.toString());
+		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
 	}
 
 }

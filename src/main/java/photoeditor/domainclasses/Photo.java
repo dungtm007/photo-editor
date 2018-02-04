@@ -20,8 +20,8 @@ public class Photo {
 	private int id;
 	
 	//private byte[] imageData;
-	@Lob
-	@Column
+	//@Lob
+	@Column(length=500000)
 	private String imageData;
 	
 	private int userId;

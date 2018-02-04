@@ -96,12 +96,20 @@ $(function () {
 	
 	$("#btnSaveModified").on("click", function () {
 		
-		var title = prompt("Title of image?");
+		var title = "";
+		while(!title) {
+			title = prompt("Title of image (required)?");	
+			if (title == null) { // Cancel
+				return;
+			}
+		}
+		
 		var dataURL = createCanvasImageData();
 		
 		// Save user to DB
 		var data = {
 				"userId": photoEditorApp.userId,
+				"token": photoEditorApp.token,
 				"imageData": dataURL, // dataURL.split(',')[1],
 				"photoId": photoEditorApp.curPhotoId || -1,
 				"photoTitle": title
@@ -208,25 +216,29 @@ $(function () {
 	
 	$("#btnLogin, #signInFB").on("click", function () {
 
-		var provider = new firebase.auth.FacebookAuthProvider();
-		firebase.auth().signInWithPopup(provider).then(function(result) {
-			  
-			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-			// var token = result.credential.accessToken;
-			var token = result.credential.accessToken;
-			console.log("Token: " + token.substring(0, 10));
-			console.log("Sign in successfully");			
-			
-		}).catch(function(error) {
-			  var errorCode = error.code;
-			  var errorMessage = error.message;
-			  var email = error.email;
-			  var credential = error.credential;
-			  console.log("(Sign in error) code: " + errorCode);
-			  console.log("(Sign in error) message: " + errorMessage);
-			  console.log("(Sign in error) email: " + email);
-			  console.log("(Sign in error) credential: " + credential);
-		});
+		// Using session to store credential
+//		firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+//		 .then(function() {
+			 
+			var provider = new firebase.auth.FacebookAuthProvider();
+			firebase.auth().signInWithPopup(provider).then(function(result) {
+				  
+				// This gives you a Facebook Access Token. You can use it to access the Facebook API.
+				var token = result.credential.accessToken;
+				console.log("FB Token: " + tokens.substring(token.length - 30, token.length - 1));			
+				
+			}).catch(function(error) {
+				  var errorCode = error.code;
+				  var errorMessage = error.message;
+				  var email = error.email;
+				  var credential = error.credential;
+				  console.log("(Sign in error) code: " + errorCode);
+				  console.log("(Sign in error) message: " + errorMessage);
+				  console.log("(Sign in error) email: " + email);
+				  console.log("(Sign in error) credential: " + credential);
+			});
+		
+//		 });
 		
 		// Using session (tab scope) to store credential
 		// firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
@@ -240,10 +252,11 @@ $(function () {
 	$("#btnLogout, #signOut").on("click", function() {
 		
 		firebase.auth().signOut().then(function() {
-			console.log("Sign out successfully");
 			photoEditorApp.userId = null;
-			curPhotoId.curPhotoId = null;
+			photoEditorApp.curPhotoId = null;
+			console.log("Sign out successfully");
 		}).catch(function(error) {
+			console.log(error);
 			console.log("Sign out error !!!");
 		});
 	});

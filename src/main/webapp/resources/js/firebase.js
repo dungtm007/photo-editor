@@ -62,7 +62,7 @@ var initApp = function() {
 		user.getIdToken().then(function(accessToken) {
 		  
 			console.log("Auth State Changed");
-			console.log("Auth State Token: " + accessToken.substring(0, 10));
+			console.log("Firebase Token: " + accessToken.substring(accessToken.length - 30, accessToken.length - 1));
 			
 			// Save user to DB (if not signed in)
 			var data = {
@@ -70,29 +70,32 @@ var initApp = function() {
 					"oauthUid": user.providerData[0].uid,
 					"displayName": user.displayName,
 					"email": user.providerData[0].email,
-					"photoUrl": user.photoURL
+					"photoUrl": user.photoURL,
+					"token": accessToken
 			};
 			
 			$.post("user", data)
 				.done(function(response) {
-					console.log("success");
+					
+					console.log(response.result);
+					
 					photoEditorApp.userId = response.userId;
+					photoEditorApp.token = accessToken;
 					photoEditorApp.curUser = user;
 					
 					if (photoEditorApp.currentLoadMethod) {
-						console.log("Call photoEditorApp.currentLoadMethod");
 						photoEditorApp.currentLoadMethod();
 					}
 					
 				})
-				.fail(function() {
-					console.log("error");
+				.fail(function(xhr, textStatus, errorThrown ) {
+					//console.log(response.result);
+					console.log(errorThrown);
 				});
 		});
 	  } else {
 			// User is signed out.
 		  	if (photoEditorApp.currentUnloadMethod) {
-		  		console.log("Call photoEditorApp.currentUnloadMethod");
 		  		photoEditorApp.currentUnloadMethod();
 		  	}
 	  }
