@@ -24,7 +24,7 @@
     <img src="${photo.imageData}" alt="error" />
     <figcaption>${photo.title} 
     	<small>${photo.created}</small>
-    	<a>Download</a>
+    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
     	<a>Share</a>
     </figcaption>
     

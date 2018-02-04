@@ -150,6 +150,7 @@ $(function () {
 	});
 	
 	$("#btnDownload, #lnkDownload").on("click", function () {
+		debugger;
 		this.href = createCanvasImageData();
 	});
 	

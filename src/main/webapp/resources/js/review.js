@@ -20,6 +20,9 @@ popup = {
     src = $('img', $fig).attr('src');
     $shadow.css({backgroundImage: 'url(' + src + ')'});
     $bg.css({backgroundImage: 'url(' + src + ')'});
+    
+    
+    
     setTimeout(function(){
       $('.popup').addClass('pop');
     }, 10);
@@ -30,26 +33,6 @@ popup = {
       $('.popup').remove()
     }, 100);
   },
-  
-  linkDownload: function(){
-	  
-  },
-  
-}
-
-function createCanvasImageData() {
-	
-	var m_canvas = document.createElement('canvas');
-	m_canvas.width = $("#imageToEdit").width();
-	m_canvas.height = $("#imageToEdit").height();
-	
-	var ctx = m_canvas.getContext('2d');
-	ctx.filter = $("#imageToEdit").css("filter");
-	var img = document.getElementById("imageToEdit");
-	
-	ctx.drawImage(img, 0, 0 , m_canvas.width, m_canvas.height);
-	var dataURL = m_canvas.toDataURL('image/jpeg');
-	return dataURL;
 }
 
 popup.init()
