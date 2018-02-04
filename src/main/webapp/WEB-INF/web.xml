@@ -15,18 +15,16 @@
     <servlet-name>UserServlet</servlet-name>
     <servlet-class>photoeditor.servlets.UserServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>UserServlet</servlet-name>
-    <url-pattern>/UserServlet</url-pattern>
-  </servlet-mapping>
   <servlet>
     <description></description>
     <display-name>PhotoServlet</display-name>
     <servlet-name>PhotoServlet</servlet-name>
     <servlet-class>photoeditor.servlets.PhotoServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>PhotoServlet</servlet-name>
-    <url-pattern>/PhotoServlet</url-pattern>
-  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TokenServlet</display-name>
+    <servlet-name>TokenServlet</servlet-name>
+    <servlet-class>photoeditor.servlets.TokenServlet</servlet-class>
+  </servlet>
 </web-app>

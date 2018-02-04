@@ -2,7 +2,6 @@ package photoeditor.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,34 +14,28 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import photoeditor.domainclasses.Photo;
 import photoeditor.domainclasses.Token;
-import photoeditor.services.PhotoService;
 import photoeditor.services.TokenService;
-import photoeditor.services.UserService;
 import photoeditor.utilities.TokenValidator;
 
-@WebServlet("/photo")
-public class PhotoServlet extends HttpServlet {
-	
+@WebServlet("/token")
+public class TokenServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	@Autowired
-    private PhotoService photoService;
-	
+       
 	@Autowired
 	private TokenService tokenService;
 	
-    public PhotoServlet() {
+    public TokenServlet() {
         super();
     }
-    
+
     @Override
     public void init() throws ServletException {
         SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, getServletContext());
         //https://stackoverflow.com/questions/43654488/spring-boot-inject-bean-into-httpservlet
     }
-	
+    
+    // it should be doDelete, but it does not suppport getParameter as Key-Value
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("application/json");
@@ -50,6 +43,7 @@ public class PhotoServlet extends HttpServlet {
 		String errorMsg = "";
 		PrintWriter writer = response.getWriter();
 		
+		// Verify 
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String token = request.getParameter("token");
 		
@@ -65,28 +59,16 @@ public class PhotoServlet extends HttpServlet {
 			return;
 		}
 		
-		int photoId = Integer.parseInt(request.getParameter("photoId"));
-		String photoTitle = request.getParameter("photoTitle");
-		String imageBase64 = request.getParameter("imageData");
+		tokenService.delete(activeToken);
 		
-		Photo photo = photoService.find(photoId);
-		if (photo == null) {
-			photo = new Photo(userId, imageBase64, photoTitle);
-		}
-		else {
-			photo.setImageData(imageBase64);
-		}
-		photoService.save(photo);
-
 		JSONObject json = null;
 		try {
-			json = new JSONObject("{'result':'Success', 'photoId':'" + photo.getId() + "'}");
+			json = new JSONObject("{ 'result':'Success' }");
 		} catch (JSONException e) {
 			errorMsg = "Cannot parse result";
 			e.printStackTrace();
 		}
 		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
-		
 	}
 
 }

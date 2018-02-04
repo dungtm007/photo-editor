@@ -117,12 +117,13 @@ $(function () {
 		
 		$.post("photo", data)
 			.done(function(response) {
-				console.log("success");
+				console.log("Success upload photo to server");
 				photoEditorApp.curPhotoId = response.photoId;
 				alert("Success");
 			})
 			.fail(function(xhr, textStatus, errorThrown ) {
 				console.log(errorThrown);
+				console.log("Error upload photot to server");
 				alert("Error");
 			});
 		
@@ -249,11 +250,28 @@ $(function () {
 	});
 	
 	
-	$("#btnLogout, #signOut").on("click", function() {
+	$("#signOut").on("click", function() {
 		
 		firebase.auth().signOut().then(function() {
-			photoEditorApp.userId = null;
-			photoEditorApp.curPhotoId = null;
+
+			// Remove token
+			var data = {
+				"userId": photoEditorApp.userId,
+				"token": photoEditorApp.token
+			};
+			
+			
+			$.post("token", data)
+				.done(function(response) {
+						console.log("Success delete token");
+				})
+				.fail(function(xhr, textStatus, errorThrown ) {
+						console.log(errorThrown);
+						console.log("Error delete token");
+				});
+			
+			photoEditorApp.clear();
+			
 			console.log("Sign out successfully");
 		}).catch(function(error) {
 			console.log(error);
