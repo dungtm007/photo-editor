@@ -2,6 +2,7 @@ package photoeditor.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -73,7 +74,8 @@ public class UserServlet extends HttpServlet {
 		}
 		
 		User user = userService.findByOauthUid(oauthUid);
-		Token activeToken = tokenService.findByToken(token);
+		List<Token> activeTokens = tokenService.findByToken(token);
+		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
 		
 		if(user == null) { // new user, new token
 			user = new User(oauthProvider, oauthUid, displayName, email, photoUrl);

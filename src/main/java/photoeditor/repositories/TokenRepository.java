@@ -17,7 +17,7 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
 	List<Token> findByUserIdAndIsActive(int userId, boolean isActive);
 	
 	@Transactional
-	Token findByToken(String token);
+	List<Token> findByToken(String token);
 	
 	@Modifying
 	@Transactional

@@ -2,6 +2,7 @@ package photoeditor.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,9 +47,18 @@ public class TokenServlet extends HttpServlet {
 		// Verify 
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String token = request.getParameter("token");
+		String action = request.getParameter("action");
+		
+		if (!action.toUpperCase().equals("DELETE")) {
+			errorMsg = "Not supported action";
+			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
+			return;
+		}
 		
 		// Validate authorization
-		Token activeToken = tokenService.findByToken(token);
+		List<Token> activeTokens = tokenService.findByToken(token);
+		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
+		
 		if (activeToken == null ||
 				!activeToken.isActive() ||
 				activeToken.getUserId() != userId || 
@@ -59,7 +69,7 @@ public class TokenServlet extends HttpServlet {
 			return;
 		}
 		
-		tokenService.delete(activeToken);
+		tokenService.deleteInBatch(activeTokens);
 		
 		JSONObject json = null;
 		try {

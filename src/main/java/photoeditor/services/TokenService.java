@@ -9,6 +9,6 @@ import photoeditor.domainclasses.Token;
 public interface TokenService extends GenericService<Token> {
 	List<Token> findByUserId(int userId);
 	List<Token> findByUserIdAndIsActive(int userId, boolean isActive);
-	Token findByToken(String token);
+	List<Token> findByToken(String token);
 	void deleteToken(String token);
 }

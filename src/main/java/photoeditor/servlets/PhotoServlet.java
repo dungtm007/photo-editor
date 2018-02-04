@@ -3,6 +3,7 @@ package photoeditor.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,7 +55,9 @@ public class PhotoServlet extends HttpServlet {
 		String token = request.getParameter("token");
 		
 		// Validate authorization
-		Token activeToken = tokenService.findByToken(token);
+		List<Token> activeTokens = tokenService.findByToken(token);
+		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
+		
 		if (activeToken == null ||
 				!activeToken.isActive() ||
 				activeToken.getUserId() != userId || 

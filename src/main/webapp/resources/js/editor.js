@@ -257,7 +257,8 @@ $(function () {
 			// Remove token
 			var data = {
 				"userId": photoEditorApp.userId,
-				"token": photoEditorApp.token
+				"token": photoEditorApp.token,
+				"action": "DELETE"
 			};
 			
 			
