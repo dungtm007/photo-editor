@@ -1,3 +1,7 @@
+.gitignore
+.classpath
+**/.git
+
 # Compiled source #
 ###################
 *.com
@@ -6,6 +10,7 @@
 *.exe
 *.o
 *.so
+*.properties
 
 # OS generated files #
 ######################
@@ -16,4 +21,12 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Folders #
+######################
+**/target
+target
+
+
+
 
