@@ -1,11 +1,15 @@
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<link rel="stylesheet" type="text/css" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
+<%--  <link rel="stylesheet" type="text/css" href="https://getbootstrap.com/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-<link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>" />
-<t:wrapper>
+--%>
 
+<t:wrapper>
+<link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>" />
 <div class="container">
   <div class="buttongroup">
     <button type="button" class="btn btn-info">Original</button>
