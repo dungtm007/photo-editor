@@ -16,10 +16,15 @@
 			<c:forEach var="photo" items="${photos}">
 			  <figure>
 			    <img src="${photo.imageData}" alt="${photo.title}" />
-			    <figcaption>${photo.title} 
-			    	<small>${photo.created}</small>
-			    		<a href="${photo.imageData}" download="${photo.title}">Download</a>
-			    	<a>Share</a>
+			    <figcaption>
+			    	<div>${photo.title}</div> 
+			    	<div class="downloadImgLeft">
+			    		<small>${photo.created}</small>
+			    	</div>
+			    	<div class="downloadImgRight">
+				    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
+				    	<a>Share</a>
+			    	</div>
 			    </figcaption>
 			  </figure>
 			 </c:forEach>

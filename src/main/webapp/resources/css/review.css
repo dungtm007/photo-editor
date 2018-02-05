@@ -132,3 +132,10 @@
 #photosContainer {
     margin-left: -165px;
 }
+
+.downloadImgLeft {
+	float: left;
+}
+.downloadImgRight {
+	float: right;
+}
