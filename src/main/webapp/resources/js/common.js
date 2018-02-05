@@ -88,6 +88,7 @@ $(function () {
 			
 			photoEditorApp.clear();
 			console.log("Sign out successfully");
+			window.location = "home.jsp";
 		}).catch(function(error) {
 			console.log(error);
 			console.log("Sign out error !!!");

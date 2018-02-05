@@ -53,72 +53,8 @@ public class UserServlet extends HttpServlet {
 		writer.write("User Servlet");
 	}
     
-    private void doSignIn() {
-    	
-    }
-    
-    private void doSignOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	// kill session
-    	HttpSession session = request.getSession(false);
-    	session.invalidate();
-    	
+    private void doSignIn(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");	
-		String errorMsg = "";
-		PrintWriter writer = response.getWriter();
-		
-		// Verify 
-		int userId = Integer.parseInt(request.getParameter("userId"));
-		String token = request.getParameter("token");
-		String action = request.getParameter("action");
-		
-		if (!action.toUpperCase().equals("DELETE")) {
-			errorMsg = "Not supported action";
-			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
-			return;
-		}
-		
-		// Validate authorization
-		List<Token> activeTokens = tokenService.findByToken(token);
-		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
-		
-		if (activeToken == null ||
-				!activeToken.isActive() ||
-				activeToken.getUserId() != userId || 
-				!TokenValidator.validate(activeToken, request) || 
-				!TokenValidator.verifyTokenFromFirebase(activeToken.getToken())) {
-			errorMsg = "Unauthorized or Invalid token";
-			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
-			return;
-		}
-		
-		tokenService.deleteInBatch(activeTokens);
-		
-		JSONObject json = null;
-		try {
-			json = new JSONObject("{ 'result':'Success' }");
-		} catch (JSONException e) {
-			errorMsg = "Cannot parse result";
-			e.printStackTrace();
-		}
-		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
-    	
-    	
-    }
-    
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		// refactor
-		String action = request.getParameter("action");
-		if(action != null) {
-			if(action.toUpperCase().equals("SIGNIN")) {
-					
-			} else if(action.toUpperCase().equals("SIGNOUT")) {
-				doSignOut(request, response);
-			}
-		}
-		
-		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");
 		String errorMsg = "";
 		PrintWriter writer = response.getWriter();
@@ -182,6 +118,65 @@ public class UserServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
+    }
+    
+    private void doSignOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    	// kill session
+    	HttpSession session = request.getSession(false);
+    	session.invalidate();
+    	
+    	response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");	
+		String errorMsg = "";
+		PrintWriter writer = response.getWriter();
+		
+		// Verify 
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		String token = request.getParameter("token");
+		String action = request.getParameter("action");
+		
+		if (!action.toUpperCase().equals("SIGNOUT")) {
+			errorMsg = "Not supported action";
+			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
+			return;
+		}
+		
+		// Validate authorization
+		List<Token> activeTokens = tokenService.findByToken(token);
+		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
+		
+		if (activeToken == null ||
+				!activeToken.isActive() ||
+				activeToken.getUserId() != userId || 
+				!TokenValidator.validate(activeToken, request) || 
+				!TokenValidator.verifyTokenFromFirebase(activeToken.getToken())) {
+			errorMsg = "Unauthorized or Invalid token";
+			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
+			return;
+		}
+		
+		tokenService.deleteInBatch(activeTokens);
+		
+		JSONObject json = null;
+		try {
+			json = new JSONObject("{ 'result':'Success' }");
+		} catch (JSONException e) {
+			errorMsg = "Cannot parse result";
+			e.printStackTrace();
+		}
+		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
+		
+    }
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// refactor
+		String action = request.getParameter("action");
+		if(action != null) {
+			if(action.toUpperCase().equals("SIGNIN")) {
+				doSignIn(request, response);
+			} else if(action.toUpperCase().equals("SIGNOUT")) {
+				doSignOut(request, response);
+			}
+		}
 	}
-
 }

@@ -48,7 +48,7 @@ public class ReviewServlet extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		//response.sendRedirect("review.jsp");
 		System.out.println("test");
-		int userId = (int)request.getSession().getAttribute("userId");
+		int userId = (int)request.getSession(false).getAttribute("userId");
 		List<Photo> photos = photoService.findByUserId(userId);
 		request.setAttribute("photos", photos);
 		request.getRequestDispatcher("review.jsp").forward(request, response);

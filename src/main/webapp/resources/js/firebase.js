@@ -71,7 +71,8 @@ $(function () {
 					"displayName": user.displayName,
 					"email": user.providerData[0].email,
 					"photoUrl": user.photoURL,
-					"token": accessToken
+					"token": accessToken,
+					"action": "SIGNIN"
 				};
 				
 				$.post("user", data)
@@ -90,12 +91,14 @@ $(function () {
 					.fail(function(xhr, textStatus, errorThrown ) {
 						console.log(errorThrown);
 					});
+				console.log("SIGN IN");
 			});
 		  } else {
 				// User is signed out
 			  	if (photoEditorApp.currentUnloadMethod) {
 			  		photoEditorApp.currentUnloadMethod();
 			  	}
+			  	console.log("SIGN OUT");
 		  }
 		}, function(error) {
 		  console.log(error);

@@ -10,6 +10,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class myFilter
@@ -17,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(
 		filterName="myFilter",
-		urlPatterns= {"/editor.jsp"},
-		servletNames= {"ReviewServlet"}
+		urlPatterns= {"/editor.jsp","/review"}
+//		servletNames= {"ReviewServlet"}
 		)
 public class myFilter implements Filter {
 
@@ -42,15 +43,13 @@ public class myFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		// place your code here
-		
-		System.out.println("do filter");
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
-		String userId = (String)req.getSession().getAttribute("userId");
-		if(userId == null) {
+		HttpSession session = req.getSession(false);
+		if(session == null) {
 			res.sendRedirect("home.jsp");
+			return;
 		} else {
-			// pass the request along the filter chain
 			chain.doFilter(request, response);
 		}
 	}
