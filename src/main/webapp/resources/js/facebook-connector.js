@@ -1,8 +1,8 @@
+"use strict";
 
 // Dependencies: 
 //  - jQuery ($)
 //  - FB
-
 
 var FacebookConnector = (function() {
 	
@@ -17,7 +17,8 @@ var FacebookConnector = (function() {
 			ia[i] = byteString.charCodeAt(i);
 		}
 		
-		return new Blob([ab], { type: 'image/jpeg' });
+		//return new Blob([ab], { type: 'image/jpeg' });
+		return new Blob([ia], { type: 'image/jpeg' });
 	}
 	
 	var getLoginStatus = function(callback) {
@@ -53,7 +54,7 @@ var FacebookConnector = (function() {
 		);
 	};
 	
-	var postImage = function(dataImage) {
+	var postImage = function(dataImage, callbackFunc) {
 		
 		var blob;
 		try {
@@ -75,12 +76,16 @@ var FacebookConnector = (function() {
 				contentType: false,
 				cache: false,
 				success:function(data){
-					alert("success");
+					alert("Success");
 					console.log(data);
+					if (!callbackFunc) {
+						callbackFunc();
+					}
 				},
 				error:function(shr, status, data){
 					alert("error " + data + " Status " + shr.status);
 					console.log("error " + data + " Status " + shr.status);
+					
 				},
 				complete:function(){
 					console.log("Posted to facebook");

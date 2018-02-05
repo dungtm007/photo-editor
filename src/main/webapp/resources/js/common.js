@@ -1,7 +1,30 @@
 "use strict";
 
+function createCanvasImageData(imgElementId) {
+	
+	var m_canvas = document.createElement('canvas');
+	m_canvas.width = $("#" + imgElementId).width();
+	m_canvas.height = $("#" + imgElementId).height();
+	
+	var ctx = m_canvas.getContext('2d');
+	ctx.filter = $("#" + imgElementId).css("filter");
+	var img = document.getElementById(imgElementId);
+	
+	ctx.drawImage(img, 0, 0 , m_canvas.width, m_canvas.height);
+	var dataURL = m_canvas.toDataURL('image/jpeg');
+	return dataURL;
+}
 
 $(function () {
+	
+	// Get FbToken from query string parameter
+	var urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get('fbToken')) {
+		photoEditorApp.fbToken = urlParams.get('fbToken');
+		// Update link to 2 primary pages
+		$("#linkToReview").attr("href", "review?fbToken=" + photoEditorApp.fbToken);
+		$("#linkToEditor").attr("href", "editor.jsp?fbToken=" + photoEditorApp.fbToken);
+	}
 	
 	if (!photoEditorApp.currentLoadMethod) {
 		photoEditorApp.currentLoadMethod = loadHeaderUserSection;
@@ -46,10 +69,12 @@ $(function () {
 		firebase.auth().signInWithPopup(provider).then(function(result) {
 			  
 			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
-			var token = result.credential.accessToken;
-			console.log("FB Token: " + tokens.substring(token.length - 30, token.length - 1));			
+			var fbToken = result.credential.accessToken;
+			photoEditorApp.fbToken = fbToken;
+			console.log("FB Token: " + fbToken.substring(fbToken.length - 30, fbToken.length - 1));			
 			
 		}).catch(function(error) {
+			  console.log("(Sign in error): " + error);
 			  console.log("(Sign in error) code: " + error.code);
 			  console.log("(Sign in error) message: " + error.message);
 			  console.log("(Sign in error) email: " + error.email);

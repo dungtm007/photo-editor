@@ -147,3 +147,7 @@
 .downloadImgRight a:hover {
 	text-decoration: none;
 }
+
+#shareImg {
+	cursor: pointer;
+}
