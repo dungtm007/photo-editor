@@ -11,18 +11,18 @@
     <button type="button" class="btn btn-info">Original</button>
     <button type="button" class="btn btn-info">Modified</button>
   </div>
-	<div class="row">
+	<div id="photosContainer" class="row">
 		<div class="gallery">
-		<c:forEach var="photo" items="${photos}">
-		  <figure>
-		    <img src="${photo.imageData}" alt="${photo.title}" />
-		    <figcaption>${photo.title} 
-		    	<small>${photo.created}</small>
-		    		<a href="${photo.imageData}" download="${photo.title}">Download</a>
-		    	<a>Share</a>
-		    </figcaption>
-		  </figure>
-		 </c:forEach>
+			<c:forEach var="photo" items="${photos}">
+			  <figure>
+			    <img src="${photo.imageData}" alt="${photo.title}" />
+			    <figcaption>${photo.title} 
+			    	<small>${photo.created}</small>
+			    		<a href="${photo.imageData}" download="${photo.title}">Download</a>
+			    	<a>Share</a>
+			    </figcaption>
+			  </figure>
+			 </c:forEach>
 		</div>
 	</div>
 </div>
