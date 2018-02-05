@@ -21,61 +21,61 @@
 			
 			<div id="editorControls">
 				<p>
-					Blur <input type="range" id="blur" 
+					<span class="factor-label">Blur </span><input type="range" id="blur" class="slider"
 							min="0" max="10" value="0"
 							data-filter="blur" 
 							data-unit="px" />
 				</p>
 				<p>
-					Brightness <input type="range" id="brightness" 
+					<span class="factor-label">Brightness </span><input type="range" id="brightness" class="slider"
 									min="30" max="200" value="100"
 									data-filter="brightness"
 									data-unit="%" />
 				</p>
 				<p>
-					Contrast <input type="range" id="contrast" 
+					<span class="factor-label">Contrast </span><input type="range" id="contrast" class="slider"
 								min="30" max="200" value="100"
 								data-filter="contrast"
 								data-unit="%" />
 				</p>
 				<p>
-					Grayscale <input type="range" id="grayscale" 
+					<span class="factor-label">Grayscale </span><input type="range" id="grayscale" class="slider"
 								min="0" max="100" value="0"
 								data-filter="grayscale" 
 								data-unit="%" />
 				</p>
 				<p>
-					Hue Rotate <input type="range" id="hueRotate" 
+					<span class="factor-label">Hue Rotate </span><input type="range" id="hueRotate" class="slider"
 									min="0" max="350" value="0"
 									data-filter="hue-rotate"
 									data-unit="deg" />
 				</p>
 				<p>
-					Invert <input type="range" id="invert" 
+					<span class="factor-label">Invert </span><input type="range" id="invert" class="slider"
 								min="0" max="100" value="0"
 								data-filter="invert" 
 								data-unit="%" />
 				</p>
 				<p>
-					Opacity <input type="range" id="opacity"
+					<span class="factor-label">Opacity </span><input type="range" id="opacity" class="slider"
 								min="40" max="100" value="100"
 								data-filter="opacity"
 								data-unit="%" />
 				</p>
 				<p>
-					Saturate <input type="range" id="saturate" 
+					<span class="factor-label">Saturate </span><input type="range" id="saturate" class="slider"
 								min="0" max="250" value="100"
 								data-filter="saturate"
 									data-unit="%" />
 				</p>
 				<p>
-					Sepia <input type="range" id="sepia" 
+					<span class="factor-label">Sepia </span><input type="range" id="sepia" class="slider"
 								min="0" max="100" value="0"
 								data-filter="sepia"
 								data-unit="%" />
 				</p>
 				<div>
-					<button id="btnReset">Reset</button>
+					
 				</div>
 			</div>
 			
@@ -145,19 +145,10 @@
 			</div>
 			
 			<div id="processDiv">
-				<!-- <div> -->
-					<!-- <button id="btnSaveModified">Save</button> -->
-				<!-- </div> -->
-				
-				<!-- <div> -->
-					<!-- <button id="btnShare">Share</button> -->
-				<!-- </div> -->
-				
 				<div>
-					<!-- <button id="btnDownload">Download</button> -->
-					<button id="btnSaveModified" class="btn btn-default">Save</button>
-					<button id="btnShare" class="btn btn-default">Share</button>
-					<a id="lnkDownload" href="#" target="_blank" download="editedImage.jpg">Download</a>
+					<button id="btnReset" class="btn bottom-command btn-info">Reset</button></br>
+					<a id="lnkDownload" href="#" target="_blank" download="editedImage.jpg" class="btn btn-primary bottom-command">Download</a><br/>
+					<button id="btnSaveModified" class="btn btn-primary bottom-command">Save</button>
 				</div>
 			</div>
 			

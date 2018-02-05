@@ -53,6 +53,7 @@
 
 .popup.pop {
   opacity: 1;
+  overflow-y: hidden;
 }
 .popup.pop figure {
   opacity: 1;
