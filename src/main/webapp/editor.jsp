@@ -3,7 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <t:wrapper>
-    
+	<jsp:attribute name="title">
+		Editor
+	</jsp:attribute>
+
+    <jsp:body>
     <link rel="stylesheet" href="<c:url value='/resources/css/editor.css'/>" />
     
     <div id="uploadDiv">
@@ -162,5 +166,5 @@
 		
 	</main>
 	<script src="<c:url value='/resources/js/editor.js'/>"></script>
-    
+    </jsp:body>
 </t:wrapper>

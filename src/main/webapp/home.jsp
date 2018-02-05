@@ -8,7 +8,7 @@
 
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-	<title>Home Page</title>
+	<title>Photo Editor</title>
 	
 	<!-- jQuery -->
 		<script src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>

@@ -1,11 +1,14 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ attribute name="title" fragment="true" %>
 
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<title>Wrapper</title>
+		<link href="<c:url value='favicon3.png' />" type="image/gif" rel="shortcut icon" />
+		
+		<title><jsp:invoke fragment="title"/></title>
 		
 		<!-- jQuery -->
 		<script src="<c:url value='/resources/js/jquery-3.3.1.min.js'/>"></script>
