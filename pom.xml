@@ -99,5 +99,15 @@
 	  <version>5.8.0</version>
 	</dependency>
 	
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-tomcat -->
+	<!--
+	<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-tomcat</artifactId>
+    	<version>1.4.2.RELEASE</version>
+    	<scope>test</scope>
+	</dependency>
+	-->
+	
   </dependencies>
 </project>

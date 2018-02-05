@@ -22,19 +22,25 @@
     <servlet-name>PhotoServlet</servlet-name>
     <servlet-class>photoeditor.servlets.PhotoServlet</servlet-class>
   </servlet>
-
   <servlet>
     <description></description>
     <display-name>TokenServlet</display-name>
     <servlet-name>TokenServlet</servlet-name>
     <servlet-class>photoeditor.servlets.TokenServlet</servlet-class>
-</servlet>
-
+  </servlet>
   <servlet>
     <description></description>
     <display-name>ReviewServlet</display-name>
     <servlet-name>/ReviewServlet</servlet-name>
     <servlet-class>photoeditor.servlets.ReviewServlet</servlet-class>
-
   </servlet>
+<!--   <filter>
+    <display-name>myFilter</display-name>
+    <filter-name>myFilter</filter-name>
+    <filter-class>photoeditor.filter.myFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>myFilter</filter-name>
+    <url-pattern>/myFilter</url-pattern>
+  </filter-mapping> -->
 </web-app>

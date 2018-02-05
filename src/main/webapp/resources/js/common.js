@@ -40,6 +40,7 @@ $(function () {
 	}
 	
 	$("#signInFB").on("click", function () {
+		debugger;
 
 		var provider = new firebase.auth.FacebookAuthProvider();
 		firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -64,17 +65,19 @@ $(function () {
 	});
 	
 	$("#signOut").on("click", function() {
-		
+		debugger;
 		firebase.auth().signOut().then(function() {
-
+			debugger;
 			// Remove token
 			var data = {
 				"userId": photoEditorApp.userId,
 				"token": photoEditorApp.token,
-				"action": "DELETE"
+				//"action": "DELETE"
+				"action": "SIGNOUT"
 			};
 			
-			$.post("token", data)
+			//$.post("token", data)
+			$.post("user", data)
 				.done(function(response) {
 						console.log("Success delete token");
 				})
@@ -90,5 +93,4 @@ $(function () {
 			console.log("Sign out error !!!");
 		});
 	});
-	
 });
