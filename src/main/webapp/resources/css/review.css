@@ -37,7 +37,7 @@
 
 .popup {
   position: fixed;
-  z-index: 2;
+  z-index: 9999;
   top: 0px;
   left: 0;
   width: 100%;
@@ -45,7 +45,6 @@
   background: rgba(255, 255, 255, 0.75);
   opacity: 0;
   overflow: auto;
-  
 }
 
 .imginside {
@@ -56,7 +55,6 @@
   opacity: 1;
 }
 .popup.pop figure {
-  margin-top: 100px;
   opacity: 1;
 }
 .popup figure {

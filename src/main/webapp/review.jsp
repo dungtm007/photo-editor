@@ -7,10 +7,10 @@
 <t:wrapper>
 <link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>" />
 <div class="container">
-  <div class="buttongroup">
+  <!-- <div class="buttongroup">
     <button type="button" class="btn btn-info">Original</button>
     <button type="button" class="btn btn-info">Modified</button>
-  </div>
+  </div> -->
 	<div id="photosContainer" class="row">
 		<div class="gallery">
 			<c:forEach var="photo" items="${photos}">

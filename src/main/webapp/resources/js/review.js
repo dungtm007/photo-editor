@@ -1,5 +1,4 @@
 "use strict";
-
 var popup = {
   init: function() {
     $('figure').click(function(){
@@ -13,7 +12,6 @@ var popup = {
     })
   },
   open: function($figure) {
-	  //    $('.gallery').addClass('pop');
     var $popup = $('<div class="popup" />').appendTo($('body'));
     var $fig = $figure.clone().appendTo($('.popup'));
     var $bg = $('<div class="bg" />').appendTo($('.popup'));
@@ -22,7 +20,6 @@ var popup = {
     var src = $('img', $fig).attr('src');
     $shadow.css({backgroundImage: 'url(' + src + ')'});
     $bg.css({backgroundImage: 'url(' + src + ')'});
-    
     setTimeout(function(){
       $('.popup').addClass('pop');
     }, 10);
