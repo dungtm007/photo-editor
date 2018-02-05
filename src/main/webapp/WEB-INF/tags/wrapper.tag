@@ -60,7 +60,7 @@
 						<img id="userAvatar1" class="profile-img" src="" alt="user avatar" />
 						<span class="navbar-text" id="userName1"></span>
 					</li>
-					<li class="dropdown">
+					<li id="dropdownLink" class="dropdown">
 						<a id="signInLink" href="#" class="dropdown-toggle" data-toggle="dropdown"><span id="signInText">Sign in</span> <span class="caret"></span></a>
 						<ul id="login-dp" class="dropdown-menu">
 							<li>

@@ -1,6 +1,7 @@
 
 #loginMenu {
 	height: 85px;	
+	min-width: 235px;
 }
 
 #loginMenu > li {
@@ -8,7 +9,9 @@
 	height: 85px;
 }
 
-
+#dropdownLink {
+	float: right;
+}
 
 #login-dp{
     min-width: 250px;
@@ -51,19 +54,19 @@
     color: #fff;
     background-color:#59b5fa;
 }
-@media(max-width:768px){
-    #login-dp{
+
+@media(max-width:768px) {
+	
+    #login-dp {
         background-color: inherit;
         color: #fff;
     }
-    #login-dp .bottom{
+    
+    #login-dp .bottom {
         background-color: inherit;
         border-top:0 none;
     }
 }
-
-
-
 
 #features-dp{
     min-width: 250px;
