@@ -169,14 +169,18 @@ $(function () {
 		return dataURL;
 	}
 	
-	$("#custom").on("click", function () {
-		$("#editorControls").show();
-		$("#editorPresets").hide();
-	});
-	
 	$("#preset").on("click", function () {
 		$("#editorPresets").show();
 		$("#editorControls").hide();
+		$(this).removeClass("btn-default").addClass("btn-warning");
+		$("#custom").removeClass("btn-warning").addClass("btn-default");
+	});
+	
+	$("#custom").on("click", function () {
+		$("#editorControls").show();
+		$("#editorPresets").hide();
+		$(this).removeClass("btn-default").addClass("btn-warning");
+		$("#preset").removeClass("btn-warning").addClass("btn-default");
 	});
 	
 	$("#uploadedFile").on("change", function(e) {
