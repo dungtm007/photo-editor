@@ -25,7 +25,7 @@
 		    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
 		    	<a>Share</a>
 		    </figcaption>
-		  </figure>s
+		  </figure>
 		 </c:forEach>
 		</div>
 	</div>
