@@ -55,4 +55,9 @@ public class UserServiceImpl implements UserService {
 		return userRepository.findByOauthUid(oauthUid);
 	}
 
+	@Override
+	public void deleteAllInBatch() {
+		userRepository.deleteAllInBatch();	
+	}
+
 }
