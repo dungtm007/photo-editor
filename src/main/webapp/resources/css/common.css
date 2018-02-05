@@ -126,6 +126,12 @@
 #features-dp .form-group {
     margin-bottom: 10px;
 }
+
+#features-dp a {
+	text-decoration: none;
+	color: inherit;
+}
+
 .btn-fb{
     color: #fff;
     background-color:#3b5998;

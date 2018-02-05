@@ -43,6 +43,9 @@
 		<!-- Firebase -->
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 		
+		<!-- Common js (handle header, login section, etc.) -->
+		<script src="<c:url value='/resources/js/common.js'/>"></script>
+		
 		<!-- Application's FireBase -->
 		<script src="<c:url value='/resources/js/firebase.js'/>"></script>
 		
@@ -87,7 +90,10 @@
 							<li>
 								 <div class="row">
 										<div class="feature-item">
-										 <a href="review">Saved Photos</a>	
+										 	<a href="review">Saved Photos</a>	
+										</div>
+										<div class="feature-item">
+										 	<a href="editor.jsp">Photo Editor</a>	
 										</div>
 										<div id="signOut" class="feature-item">
 											Sign out

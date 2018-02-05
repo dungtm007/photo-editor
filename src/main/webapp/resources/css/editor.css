@@ -195,6 +195,7 @@ input[type='range'] {
     opacity: 0.7;
     -webkit-transition: .2s;
     transition: opacity .2s;
+    
     margin: 2px 0;
 }
 
@@ -206,6 +207,9 @@ input[type='range'] {
     border-radius: 50%; 
     background: #4CAF50;
     cursor: pointer;
+    
+    margin: 2px 0;
+    
 }
 
 .slider::-moz-range-thumb {
@@ -214,6 +218,8 @@ input[type='range'] {
     border-radius: 50%;
     background: #4CAF50;
     cursor: pointer;
+    
+    margin: 2px 0;
 }
 
 .factor-label {
