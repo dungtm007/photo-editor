@@ -25,11 +25,7 @@
 		    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
 		    	<a>Share</a>
 		    </figcaption>
-		  </figure>
-		  <figure>
-		    <img src="https://images.unsplash.com/photo-1448814100339-234df1d4005d?crop=entropy&fit=crop&fm=jpg&h=200&ixjsv=2.1.0&ixlib=rb-0.3.5&q=80&w=300" alt="" />
-		    <figcaption>Daytona Beach <small>United States</small></figcaption>
-		  </figure>
+		  </figure>s
 		 </c:forEach>
 		</div>
 	</div>
