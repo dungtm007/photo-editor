@@ -155,8 +155,8 @@
 				
 				<div>
 					<!-- <button id="btnDownload">Download</button> -->
-					<button id="btnSaveModified">Save</button>
-					<button id="btnShare">Share</button>
+					<button id="btnSaveModified" class="btn btn-default">Save</button>
+					<button id="btnShare" class="btn btn-default">Share</button>
 					<a id="lnkDownload" href="#" target="_blank" download="editedImage.jpg">Download</a>
 				</div>
 			</div>
