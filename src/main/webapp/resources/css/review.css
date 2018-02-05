@@ -136,6 +136,15 @@
 .downloadImgLeft {
 	float: left;
 }
+
+.downloadImgLeft a:hover {
+	text-decoration: none;
+}
+
 .downloadImgRight {
 	float: right;
+}
+
+.downloadImgRight a:hover {
+	text-decoration: none;
 }

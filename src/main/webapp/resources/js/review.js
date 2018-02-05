@@ -1,4 +1,6 @@
-popup = {
+"use strict";
+
+var popup = {
   init: function() {
     $('figure').click(function(){
       popup.open($(this));
@@ -11,13 +13,13 @@ popup = {
     })
   },
   open: function($figure) {
-//    $('.gallery').addClass('pop');
-    $popup = $('<div class="popup" />').appendTo($('body'));
-    $fig = $figure.clone().appendTo($('.popup'));
-    $bg = $('<div class="bg" />').appendTo($('.popup'));
-    $close = $('<div class="close"><svg><use xlink:href="#close"></use></svg></div>').appendTo($fig);
-    $shadow = $('<div class="shadow" />').appendTo($fig);
-    src = $('img', $fig).attr('src');
+	  //    $('.gallery').addClass('pop');
+    var $popup = $('<div class="popup" />').appendTo($('body'));
+    var $fig = $figure.clone().appendTo($('.popup'));
+    var $bg = $('<div class="bg" />').appendTo($('.popup'));
+    var $close = $('<div class="close"><svg><use xlink:href="#close"></use></svg></div>').appendTo($fig);
+    var $shadow = $('<div class="shadow" />').appendTo($fig);
+    var src = $('img', $fig).attr('src');
     $shadow.css({backgroundImage: 'url(' + src + ')'});
     $bg.css({backgroundImage: 'url(' + src + ')'});
     
