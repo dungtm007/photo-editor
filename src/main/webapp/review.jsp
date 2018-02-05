@@ -28,8 +28,8 @@
 			    		<small>${photo.created}</small>
 			    	</div>
 			    	<div class="downloadImgRight">
-				    	<a href="${photo.imageData}" download="${photo.title}">Download</a>
-				    	<a>Share</a>
+				    	<a id="downloadImg" href="${photo.imageData}" download="${photo.title}">Download</a>
+				    	<a id="shareImg">Share</a>
 			    	</div>
 			    </figcaption>
 			  </figure>
@@ -37,6 +37,7 @@
 		</div>
 	</div>
 </div>
+<script src="<c:url value='/resources/js/facebook-connector.js'/>"></script>
 <script src="<c:url value='/resources/js/review.js'/>"></script>
 </jsp:body>
 </t:wrapper>

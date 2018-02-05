@@ -1,10 +1,7 @@
 "use strict";
 
 $(function () {
-	
-	// Edit menu to show link to Saved Photo page
-	
-	
+
 	function loadImageToCanvas() {
 		
 		var canvas = $("#canvas")[0];
@@ -72,7 +69,7 @@ $(function () {
 			}
 		}
 	
-		var dataURL = createCanvasImageData();
+		var dataURL = createCanvasImageData("imageToEdit");
 		
 		// Save user to DB
 		var data = {
@@ -117,24 +114,23 @@ $(function () {
 	});
 	
 	$("#btnDownload, #lnkDownload").on("click", function () {
-		debugger;
-		this.href = createCanvasImageData();
+		this.href = createCanvasImageData("imageToEdit");
 	});
 	
-	function createCanvasImageData() {
-		
-		var m_canvas = document.createElement('canvas');
-		m_canvas.width = $("#imageToEdit").width();
-		m_canvas.height = $("#imageToEdit").height();
-		
-		var ctx = m_canvas.getContext('2d');
-		ctx.filter = $("#imageToEdit").css("filter");
-		var img = document.getElementById("imageToEdit");
-		
-		ctx.drawImage(img, 0, 0 , m_canvas.width, m_canvas.height);
-		var dataURL = m_canvas.toDataURL('image/jpeg');
-		return dataURL;
-	}
+//	function createCanvasImageData() {
+//		
+//		var m_canvas = document.createElement('canvas');
+//		m_canvas.width = $("#imageToEdit").width();
+//		m_canvas.height = $("#imageToEdit").height();
+//		
+//		var ctx = m_canvas.getContext('2d');
+//		ctx.filter = $("#imageToEdit").css("filter");
+//		var img = document.getElementById("imageToEdit");
+//		
+//		ctx.drawImage(img, 0, 0 , m_canvas.width, m_canvas.height);
+//		var dataURL = m_canvas.toDataURL('image/jpeg');
+//		return dataURL;
+//	}
 	
 	$("#preset").on("click", function () {
 		$("#editorPresets").show();

@@ -93,10 +93,10 @@
 							<li>
 								 <div class="row">
 										<div class="feature-item">
-										 	<a href="review">Saved Photos</a>	
+										 	<a id="linkToReview" href="review">Saved Photos</a>	
 										</div>
 										<div class="feature-item">
-										 	<a href="editor.jsp">Photo Editor</a>	
+										 	<a id="linkToEditor" href="editor.jsp">Photo Editor</a>	
 										</div>
 										<div id="signOut" class="feature-item">
 											Sign out

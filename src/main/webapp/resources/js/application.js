@@ -9,11 +9,13 @@ if (!photoEditorApp) {
 		token: null,
 		curPhotoId: null,
 		curUser: null,
+		fbToken: null,
 		clear: function() {
 			this.userId = null;
 			this.token = null;
 			this.curPhotoId = null;
 			this.curUser = null;
+			this.fbToken = null;
 		}
 	};
 }
