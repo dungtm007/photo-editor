@@ -14,6 +14,8 @@ public interface GenericService<T extends Object> {
     
     void deleteInBatch(List<T> entities);
   
+    void deleteAllInBatch();
+    
     T find(int id);
   
     List<T> findAll();

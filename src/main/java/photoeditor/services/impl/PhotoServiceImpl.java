@@ -55,4 +55,9 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoRepository.findByUserId(userId);
 	}
 
+	@Override
+	public void deleteAllInBatch() {
+		photoRepository.deleteAllInBatch();
+	}
+
 }
