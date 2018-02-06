@@ -46,6 +46,9 @@
 		<!-- Firebase -->
 		<script src="https://www.gstatic.com/firebasejs/4.9.0/firebase.js"></script>
 		
+		<!-- Other less important tools -->
+		<script src="<c:url value='/resources/js/bootstrap-notify.min.js'/>"></script>
+		
 		<!-- Common js (handle header, login section, etc.) -->
 		<script src="<c:url value='/resources/js/common.js'/>"></script>
 		
@@ -55,12 +58,17 @@
 		<!-- Application's CSS -->
 		<link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>" />
 		
+		
 	</head>
 	<body>
+		<div class="spinning-loader-container">
+			<div class="spinning-loader"></div>
+		</div>
+	
 		<div id="firebaseui-auth-container"></div>
 		<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
 			<div id="navbarContainer" class="container-fluid">
-				<span class="siteName">Photo Editor</span>
+				<a id="titleLink" href="editor.jsp"><span class="siteName">Photo Editor</span></a>
 				<ul id="loginMenu" class="nav navbar-nav navbar-right">
 					<li> 
 						<img id="userAvatar1" class="profile-img" src="" alt="user avatar" />

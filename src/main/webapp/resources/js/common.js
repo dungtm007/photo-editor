@@ -63,22 +63,24 @@ $(function () {
 	}
 	
 	$("#signInFB").on("click", function () {
-		debugger;
 
+		$(".spinning-loader-container").show();
+		
 		var provider = new firebase.auth.FacebookAuthProvider();
 		firebase.auth().signInWithPopup(provider).then(function(result) {
 			  
 			// This gives you a Facebook Access Token. You can use it to access the Facebook API.
 			var fbToken = result.credential.accessToken;
 			photoEditorApp.fbToken = fbToken;
-			console.log("FB Token: " + fbToken.substring(fbToken.length - 30, fbToken.length - 1));			
-			
+			$("#linkToReview").attr("href", "review?fbToken=" + photoEditorApp.fbToken);
+			$("#linkToEditor").attr("href", "editor.jsp?fbToken=" + photoEditorApp.fbToken);
+			console.log("FB Token: " + fbToken.substring(fbToken.length - 30, fbToken.length - 1));
+			$(".spinning-loader-container").hide();
 		}).catch(function(error) {
-			  console.log("(Sign in error): " + error);
-			  console.log("(Sign in error) code: " + error.code);
-			  console.log("(Sign in error) message: " + error.message);
-			  console.log("(Sign in error) email: " + error.email);
-			  console.log("(Sign in error) credential: " + error.credential);
+			$(".spinning-loader-container").hide();
+			$.notify( {message: error }, {
+				type: 'danger', allow_dismiss: true, mouse_over: "pause", delay: 1000
+			});
 		});
 		
 		// Using session (tab scope) to store credential
@@ -90,33 +92,39 @@ $(function () {
 	});
 	
 	$("#signOut").on("click", function() {
-		debugger;
+		
+		$(".spinning-loader-container").show();
+		
 		firebase.auth().signOut().then(function() {
-			debugger;
+		
 			// Remove token
 			var data = {
 				"userId": photoEditorApp.userId,
 				"token": photoEditorApp.token,
-				//"action": "DELETE"
 				"action": "SIGNOUT"
 			};
 			
 			//$.post("token", data)
 			$.post("user", data)
 				.done(function(response) {
-						console.log("Success delete token");
+					console.log("Success delete token");
+					$(".spinning-loader-container").hide();	
 				})
 				.fail(function(xhr, textStatus, errorThrown ) {
-						console.log(errorThrown);
-						console.log("Error delete token");
+					$(".spinning-loader-container").hide();
+					console.log(errorThrown);
+					console.log("Error delete token");
 				});
 			
 			photoEditorApp.clear();
 			console.log("Sign out successfully");
 			window.location = "home.jsp";
+			
 		}).catch(function(error) {
+			$(".spinning-loader-container").hide();
 			console.log(error);
 			console.log("Sign out error !!!");
+			
 		});
 	});
 });

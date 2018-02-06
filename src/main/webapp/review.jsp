@@ -12,11 +12,7 @@
 
 <jsp:body>
 <link rel="stylesheet" href="<c:url value='/resources/css/review.css'/>" />
-<div class="container">
-  <!-- <div class="buttongroup">
-    <button type="button" class="btn btn-info">Original</button>
-    <button type="button" class="btn btn-info">Modified</button>
-  </div> -->
+<div class="container pageContainer">
 	<div id="photosContainer" class="row">
 		<div class="gallery">
 			<c:forEach var="photo" items="${photos}">
@@ -28,8 +24,11 @@
 			    		<small>${photo.created}</small>
 			    	</div>
 			    	<div class="downloadImgRight">
-				    	<a id="downloadImg" href="${photo.imageData}" download="${photo.title}">Download</a>
-				    	<a id="shareImg">Share</a>
+			    		<a id="downloadImg" href="${photo.imageData}" download="${photo.title}">
+				    		<span id="downloadImgIcon" class="fa fa-download fa-2x image-command">
+			    			</span>
+		    			</a>
+			    		<span id="shareImgIcon" class="fa fa-facebook fa-2x image-command"></span>
 			    	</div>
 			    </figcaption>
 			  </figure>

@@ -2,12 +2,12 @@
 
 var popup = {
   init: function() {
-    $('figure').click(function(){
-      popup.open($(this));
-    });
     
-    $(document)
-    .on('click', ".popup #downloadImg", function(event) {
+	  $('figure').click(function(){
+		  popup.open($(this));
+	  });
+    
+    $(document).on('click', ".popup #downloadImg", function(event) {
     	event.stopPropagation(); // do not bubble it in DOM tree, so normal behavior of download button is maintained 
     })
     .on('click', '.popup #figPopup', function() {
@@ -15,7 +15,8 @@ var popup = {
     })
     .on('click', '.popup', function(){
       popup.close();
-    })
+    });
+    
   },
   open: function($figure) {
     var $popup = $('<div class="popup" />').appendTo($('body'));
@@ -47,14 +48,24 @@ popup.init();
 
 $(function(){
 	
-	$(document).on("click", "#shareImg", function(){
-		//alert("clicked");
+	$(document).on("click", "#shareImg, #shareImgIcon", function(){
+		$(".spinning-loader-container").show();
 		FacebookConnector.setAccessToken(photoEditorApp.fbToken);
-		FacebookConnector.postImage(createCanvasImageData("imgPopup"), postImageCallback);
+		FacebookConnector.postImage(createCanvasImageData("imgPopup"), postImageCallback, postImageFail);
 	});
 	
 	function postImageCallback() {
-		alert("Your image is posted to FB successfully!");
+		$(".spinning-loader-container").hide();
+		$.notify( {message: 'Posted Successfully' }, {
+			type: 'success', allow_dismiss: true, mouse_over: "pause", delay: 1000, z_index: 10000
+		});
+	}
+	
+	function postImageFail() {
+		$(".spinning-loader-container").hide();
+		$.notify( {message: 'Error' }, {
+			type: 'danger', allow_dismiss: true, mouse_over: "pause", delay: 1000, z_index: 10000
+		});
 	}
 });
 

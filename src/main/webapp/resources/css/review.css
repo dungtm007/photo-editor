@@ -151,3 +151,13 @@
 #shareImg {
 	cursor: pointer;
 }
+
+.image-command {
+	cursor: pointer;
+}
+
+#downloadImg {
+	color: inherit;
+	text-decoration: none;
+}
+

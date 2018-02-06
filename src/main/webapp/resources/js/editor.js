@@ -60,7 +60,6 @@ $(function () {
 	
 	$("#btnSaveModified").on("click", function () {
 
-		debugger;
 		var title = "";
 		while(!title) {
 			title = prompt("Title of image (required)?");	
@@ -69,6 +68,7 @@ $(function () {
 			}
 		}
 	
+		$(".spinning-loader-container").show();
 		var dataURL = createCanvasImageData("imageToEdit");
 		
 		// Save user to DB
@@ -82,14 +82,19 @@ $(function () {
 		
 		$.post("photo", data)
 			.done(function(response) {
+				$(".spinning-loader-container").hide();
 				console.log("Success upload photo to server");
 				photoEditorApp.curPhotoId = response.photoId;
-				alert("Success");
+				$.notify( {message: 'Photo Saved Successfully' }, {
+					type: 'success', allow_dismiss: true, mouse_over: "pause", delay: 1000
+				});
+				
 			})
 			.fail(function(xhr, textStatus, errorThrown ) {
-				console.log(errorThrown);
-				console.log("Error upload photot to server");
-				alert("Error");
+				$(".spinning-loader-container").hide();
+				$.notify( {message: 'Error upload photo to server: ' + errorThrown }, {
+					type: 'danger', allow_dismiss: true, mouse_over: "pause", delay: 1000
+				});
 			});
 		
 	});
@@ -117,21 +122,6 @@ $(function () {
 		this.href = createCanvasImageData("imageToEdit");
 	});
 	
-//	function createCanvasImageData() {
-//		
-//		var m_canvas = document.createElement('canvas');
-//		m_canvas.width = $("#imageToEdit").width();
-//		m_canvas.height = $("#imageToEdit").height();
-//		
-//		var ctx = m_canvas.getContext('2d');
-//		ctx.filter = $("#imageToEdit").css("filter");
-//		var img = document.getElementById("imageToEdit");
-//		
-//		ctx.drawImage(img, 0, 0 , m_canvas.width, m_canvas.height);
-//		var dataURL = m_canvas.toDataURL('image/jpeg');
-//		return dataURL;
-//	}
-	
 	$("#preset").on("click", function () {
 		$("#editorPresets").show();
 		$("#editorControls").hide();
@@ -148,8 +138,8 @@ $(function () {
 	
 	$("#uploadedFile").on("change", function(e) {
 		
+		$(".spinning-loader-container").show();
 		resetOriginal();
-		
 		var target = e.originalEvent.target || e.originalEvent.srcElement;
 		var file = target.files[0];
 		var img = $("#imageToEdit")[0];
@@ -158,17 +148,15 @@ $(function () {
 			img.src = reader.result;
 		}
 		reader.readAsDataURL(file);
-		
 		photoEditorApp.curPhotoId = null;
 	});
 	
 	$("#imageToEdit").on("load", function() {
 		
 		loadBackgroundToSamples();
-		
-		// Show image and editor section
 		$("#imageToEdit").show();
 		$("#editor").show();
+		$(".spinning-loader-container").hide();
 	});
 	
 	

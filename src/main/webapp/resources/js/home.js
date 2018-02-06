@@ -3,7 +3,9 @@
 $(function () {
 	
 	function redirectToEditor() {
-		$(location).attr('href', 'editor.jsp?fbToken=' + photoEditorApp.fbToken);
+		setTimeout(function() {
+			$(location).attr('href', 'editor.jsp?fbToken=' + photoEditorApp.fbToken);
+		}, 600);
 	}
 	
 	if (!photoEditorApp.currentPage && !photoEditorApp.currentLoadMethod) {

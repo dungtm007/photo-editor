@@ -54,7 +54,7 @@ var FacebookConnector = (function() {
 		);
 	};
 	
-	var postImage = function(dataImage, callbackFunc) {
+	var postImage = function(dataImage, callbackFunc, failFunc) {
 		
 		var blob;
 		try {
@@ -76,19 +76,18 @@ var FacebookConnector = (function() {
 				contentType: false,
 				cache: false,
 				success:function(data){
-					alert("Success");
+					//alert("Success");
 					console.log(data);
-					if (!callbackFunc) {
+					if (callbackFunc) {
 						callbackFunc();
 					}
 				},
-				error:function(shr, status, data){
-					alert("error " + data + " Status " + shr.status);
+				error: function(shr, status, data){
+					//alert("error " + data + " Status " + shr.status);
 					console.log("error " + data + " Status " + shr.status);
-					
-				},
-				complete:function(){
-					console.log("Posted to facebook");
+					if (failFunc) {
+						failFunc();
+					}
 				}
 			});
 		}
