@@ -84,7 +84,7 @@ var FacebookConnector = (function() {
 				},
 				error: function(shr, status, data){
 					//alert("error " + data + " Status " + shr.status);
-					console.log("error " + data + " Status " + shr.status);
+					console.log("error " + shr.responseText + " Status " + shr.status);
 					if (failFunc) {
 						failFunc();
 					}
