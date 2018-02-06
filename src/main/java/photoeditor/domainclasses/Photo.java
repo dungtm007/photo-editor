@@ -1,6 +1,7 @@
 package photoeditor.domainclasses;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,9 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
 
+import io.netty.util.Constant;
+
 @Entity
 @Table(name="photos")
 public class Photo {
+	
+	static String formatString = "MM-dd-yyyy";
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -20,8 +25,8 @@ public class Photo {
 	private int id;
 	
 	//private byte[] imageData;
-	//@Lob
-	@Column(length=500000)
+	@Lob
+	//@Column(length=500000)
 	private String imageData;
 	
 	private int userId;
@@ -67,6 +72,11 @@ public class Photo {
 	
 	public LocalDateTime getCreated() {
 		return created;
+	}
+	
+	public String getCreatedFormat() {
+		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
+		return this.created.format(formatter);
 	}
 
 	public void setCreated(LocalDateTime created) {

@@ -19,7 +19,7 @@
 			    <figcaption>
 			    	<div>${photo.title}</div> 
 			    	<div class="downloadImgLeft">
-			    		<small>${photo.created}</small>
+			    		<small>${photo.createdFormat}</small>
 			    	</div>
 			    	<div class="downloadImgRight">
 			    		<a id="downloadImg" href="${photo.imageData}" download="${photo.title}">
