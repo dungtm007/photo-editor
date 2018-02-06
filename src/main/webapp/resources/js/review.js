@@ -20,7 +20,7 @@ var popup = {
       popup.close();
     }).on('click', '.popup #deleteImg', function(e, f){
     	var id = this.getAttribute("data-value");
-    	console.log("Delete Image: "+ e);
+    	//console.log("Delete Image: "+ e);
     	popup.deleteImg(id);
     });
     
@@ -71,6 +71,9 @@ var popup = {
 	  $.post("photo", {"action": "DELETE", "id": id})
 		.done(function(response) {
 			popup.close();
+			$.notify( {message: 'Delete image Successfully' }, {
+				type: 'success', allow_dismiss: true, mouse_over: "pause", delay: 1000
+			});
 			setTimeout(function(){
 				currentFigure.remove();
 			}, 10);
