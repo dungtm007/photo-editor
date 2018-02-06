@@ -1,26 +1,30 @@
 "use strict";
-
+var currentFigure;
 var popup = {
   init: function() {
-    
 	  $('figure').click(function(){
+		  currentFigure = this;
 		  popup.open($(this));
 	  });
     
     $(document).on('click', ".popup #downloadImg", function(event) {
+    	//debugger;
     	event.stopPropagation(); // do not bubble it in DOM tree, so normal behavior of download button is maintained 
     })
     .on('click', '.popup #figPopup', function() {
-    	debugger;
+    	//debugger;
       return false; // prevent default and stop propagation
     })
     .on('click', '.popup', function(){
-    	debugger;
+    	//debugger;
       popup.close();
+    }).on('click', '.popup #deleteImg', function(e, f){
+    	var id = this.getAttribute("data-value");
+    	console.log("Delete Image: "+ e);
+    	popup.deleteImg(id);
     });
     
     $(document).on("click", "#shareImg, #shareImgIcon", function(){
-		debugger;
 		$(".spinning-loader-container").show();
 		FacebookConnector.setAccessToken(photoEditorApp.fbToken);
 		FacebookConnector.postImage(createCanvasImageData("imgPopup"), postImageCallback, postImageFail);
@@ -57,12 +61,24 @@ var popup = {
       $('.popup').addClass('pop');
     }, 10);
   },
-  close: function(){
+  close: function() {
     $('.gallery, .popup').removeClass('pop');
     setTimeout(function(){
       $('.popup').remove()
     }, 100);
   },
+  deleteImg: function(id){
+	  $.post("photo", {"action": "DELETE", "id": id})
+		.done(function(response) {
+			popup.close();
+			setTimeout(function(){
+				currentFigure.remove();
+			}, 10);
+		})
+		.fail(function(xhr, textStatus, errorThrown ) {
+			console.log("Error delete image: " + errorThrown);
+		});
+  }
 };
 
 popup.init();

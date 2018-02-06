@@ -27,7 +27,8 @@
 			    			</span>
 		    			</a>
 			    		<span id="shareImgIcon" class="fa fa-facebook fa-2x image-command"></span>
-			    		<span>Delete</span>
+			    		<!-- <span id="deleteImg">Delete</span> -->
+			    		<a id="deleteImg" href="#" data-value="${photo.id}">Delete</a>
 			    	</div>
 			    </figcaption>
 			  </figure>

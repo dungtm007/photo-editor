@@ -50,10 +50,9 @@ public class PhotoServlet extends HttpServlet {
     	//super.doGet(req, resp);
     	System.out.println("photo do get");
     }
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		response.setContentType("application/json");
+    
+    private void saveImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");	
 		String errorMsg = "";
 		PrintWriter writer = response.getWriter();
@@ -99,6 +98,21 @@ public class PhotoServlet extends HttpServlet {
 		}
 		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
 		
+    }
+    
+    private void deleteImage(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException {
+    	photoService.delete(id);
+    }
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		if(action != null) {
+			if(action.toUpperCase().equals("DELETE")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				deleteImage(request, response, id);
+			}
+		} else {
+			saveImage(request, response);
+		}
 	}
-
 }
