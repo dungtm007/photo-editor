@@ -5,7 +5,6 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +15,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import photoeditor.domainclasses.Token;
 import photoeditor.domainclasses.User;
@@ -65,6 +61,7 @@ public class UserServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String photoUrl = request.getParameter("photoUrl");
 		String token = request.getParameter("token");
+		String fbToken = request.getParameter("fbToken");
 		
 		// Validate token validity according to Firebase
 		if (!TokenValidator.verifyTokenFromFirebase(token)) {
@@ -92,8 +89,7 @@ public class UserServlet extends HttpServlet {
 					errorMsg = "Unauthorized or Invalid token";
 					writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
 					return;
-				}
-				
+				}				
 			}
 			else {
 				activeToken = new Token(user.getId(), token, true);
@@ -101,18 +97,23 @@ public class UserServlet extends HttpServlet {
 				activeToken.setBrowser(HeaderParser.getBrowser(request));
 				activeToken.setIp(HeaderParser.getIp(request));
 				tokenService.save(activeToken);				
-				
 			}
 		}
 		
 		if (request.getSession(false) == null) {
 			request.getSession();
 		}
-		request.getSession(false).setAttribute("userId", user.getId());
 		
+		request.getSession(false).setAttribute("userId", user.getId());
+		if (fbToken != null && !fbToken.isEmpty()) {
+			request.getSession(false).setAttribute("fbToken", fbToken);	
+		}
+
 		JSONObject json = null;
 		try {
-			json = new JSONObject("{ 'result':'Success', 'userId':'" + user.getId() + "' }");
+			Object fbTokenObj = request.getSession(false).getAttribute("fbToken"); 
+			fbToken = fbTokenObj != null ? fbTokenObj.toString() : "";
+			json = new JSONObject("{ 'result':'Success', 'userId':'" + user.getId() + "', 'fbToken':'" + fbToken + "' }");
 		} catch (JSONException e) {
 			errorMsg = "Cannot parse result";
 			e.printStackTrace();
@@ -121,7 +122,8 @@ public class UserServlet extends HttpServlet {
     }
     
     private void doSignOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	// kill session
+    	
+    	// Kill session
     	HttpSession session = request.getSession(false);
     	session.invalidate();
     	
@@ -133,13 +135,6 @@ public class UserServlet extends HttpServlet {
 		// Verify 
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String token = request.getParameter("token");
-		String action = request.getParameter("action");
-		
-		if (!action.toUpperCase().equals("SIGNOUT")) {
-			errorMsg = "Not supported action";
-			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
-			return;
-		}
 		
 		// Validate authorization
 		List<Token> activeTokens = tokenService.findByToken(token);
@@ -165,11 +160,10 @@ public class UserServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
-		
     }
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// refactor
+		
 		String action = request.getParameter("action");
 		if(action != null) {
 			if(action.toUpperCase().equals("SIGNIN")) {

@@ -15,100 +15,58 @@ $(function () {
 	firebase.initializeApp(config);
 	
 	
-	
-	// **************************************************
-	// Initialize the FirebaseUI Widget using Firebase
-	// **************************************************
-	//var ui = new firebaseui.auth.AuthUI(firebase.auth());
-	//
-	//var uiConfig = {
-	//  callbacks: {
-	//    signInSuccess: function(currentUser, credential, redirectUrl) {
-	//      // User successfully signed in.
-	//      // Return type determines whether we continue the redirect automatically
-	//      // or whether we leave that to developer to handle.
-	//	  alert("Success");
-	//	  console.log(currentUser);
-	//      return true;
-	//    },
-	//    uiShown: function() {
-	//      // The widget is rendered.
-	//      // Hide the loader.
-	//    }
-	//  },
-	//  // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-	//  signInFlow: 'popup',
-	//  signInSuccessUrl: 'http://localhost:8501/editor.html',
-	//  signInOptions: [
-	//    // Leave the lines as is for the providers you want to offer your users.
-	//    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-	//	firebase.auth.TwitterAuthProvider.PROVIDER_ID
-	//  ],
-	//  // Terms of service url.
-	//  tosUrl: 'http://localhost:8501/editor.html'
-	//};
-	
-	// The start method will wait until the DOM is loaded.
-	// ui.start('#firebaseui-auth-container', uiConfig);
-	
-	
-	
 	// **************************************************
 	// Track the Auth state across all your pages
 	// **************************************************
 	var initApp = function() {
+		
 		firebase.auth().onAuthStateChanged(function(user) {
+			
 		  if (user) {
-			user.getIdToken().then(function(accessToken) {
-			  
-				console.log("Auth State Changed");
-				console.log("Firebase Token: " + accessToken.substring(accessToken.length - 30, accessToken.length - 1));
+			  user.getIdToken().then(function(accessToken) {
 				
-				// Save user to DB (if not signed in) and update token
-				var data = {
+				  // Save user to DB (if not signed in) and update token
+				  var data = {
 					"oauthProvider": user.providerData[0].providerId,
 					"oauthUid": user.providerData[0].uid,
 					"displayName": user.displayName,
 					"email": user.providerData[0].email,
 					"photoUrl": user.photoURL,
 					"token": accessToken,
+					"fbToken": photoEditorApp.fbToken,
 					"action": "SIGNIN"
-				};
+				  };
+				  
+				  console.log("fbToken:" + photoEditorApp.fbToken);
 				
-				$.post("user", data)
+				  $.post("user", data)
 					.done(function(response) {
-						
-						console.log(response.result);
 						photoEditorApp.userId = response.userId;
 						photoEditorApp.token = accessToken;
 						photoEditorApp.curUser = user;
-						
+						if (response.fbToken) {
+							photoEditorApp.fbToken = response.fbToken;
+						}
 						if (photoEditorApp.currentLoadMethod) {
 							photoEditorApp.currentLoadMethod();
 						}
-						
 					})
 					.fail(function(xhr, textStatus, errorThrown ) {
 						console.log(errorThrown);
 					});
-				console.log("SIGN IN");
 			});
 		  } else {
 				// User is signed out
 			  	if (photoEditorApp.currentUnloadMethod) {
 			  		photoEditorApp.currentUnloadMethod();
 			  	}
-			  	console.log("SIGN OUT");
 		  }
 		}, function(error) {
 		  console.log(error);
 		});
 	};
 	
-	//window.addEventListener('load', function() {
-		initApp();
-	//});	
-		
+	initApp();
 });
 
 

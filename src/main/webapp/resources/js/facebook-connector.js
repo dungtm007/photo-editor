@@ -66,7 +66,6 @@ var FacebookConnector = (function() {
 		var fd = new FormData();
 		fd.append("access_token", accessToken);
 		fd.append("source", blob);
-		fd.append("message", "Test Upload Photo #photo_editor");
 		try {
 			$.ajax({
 				url:"https://graph.facebook.com/me/photos?access_token=" + accessToken,
