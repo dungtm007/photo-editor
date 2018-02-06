@@ -1,4 +1,4 @@
-<%@ tag language="java" pageEncoding="UTF-8"%>
+<%@ tag language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="title" fragment="true" %>
 
@@ -7,7 +7,6 @@
 	<head>
 		<meta charset="utf-8" />
 		<link href="<c:url value='favicon3.png' />" type="image/gif" rel="shortcut icon" />
-		
 		<title><jsp:invoke fragment="title"/></title>
 		
 		<!-- jQuery -->
