@@ -21,12 +21,12 @@ import javax.servlet.http.HttpSession;
 		urlPatterns= {"/editor.jsp","/review"}
 //		servletNames= {"ReviewServlet"}
 		)
-public class myFilter implements Filter {
+public class MyFilter implements Filter {
 
     /**
      * Default constructor. 
      */
-    public myFilter() {
+    public MyFilter() {
         // TODO Auto-generated constructor stub
     }
 

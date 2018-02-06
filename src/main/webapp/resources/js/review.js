@@ -11,9 +11,11 @@ var popup = {
     	event.stopPropagation(); // do not bubble it in DOM tree, so normal behavior of download button is maintained 
     })
     .on('click', '.popup #figPopup', function() {
+    	debugger;
       return false; // prevent default and stop propagation
     })
     .on('click', '.popup', function(){
+    	debugger;
       popup.close();
     });
     
