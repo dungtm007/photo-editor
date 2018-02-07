@@ -3,7 +3,7 @@
 $(function() {
 
     function redirectToEditor() { // currentLoadMethod for onAuthStateChanged event
-        $(location).attr('href', 'editor.jsp');
+        $(location).attr('href', 'editor');
     }
 
     if (!photoEditorApp.currentPage && !photoEditorApp.currentLoadMethod) {

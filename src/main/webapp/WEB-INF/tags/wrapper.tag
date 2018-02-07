@@ -67,7 +67,7 @@
 		<div id="firebaseui-auth-container"></div>
 		<nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
 			<div id="navbarContainer" class="container-fluid">
-				<a id="titleLink" href="editor.jsp"><span class="siteName">Photo Editor</span></a>
+				<a id="titleLink" href="editor"><span class="siteName">Photo Editor</span></a>
 				<ul id="loginMenu" class="nav navbar-nav navbar-right">
 					<li> 
 						<img id="userAvatar1" class="profile-img" src="" alt="user avatar" />
@@ -103,7 +103,7 @@
 										 	<a id="linkToReview" href="review">Saved Photos</a>	
 										</div>
 										<div class="feature-item">
-										 	<a id="linkToEditor" href="editor.jsp">Photo Editor</a>	
+										 	<a id="linkToEditor" href="editor">Photo Editor</a>	
 										</div>
 										<div id="signOut" class="feature-item">
 											Sign out

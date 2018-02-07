@@ -19,7 +19,7 @@ $(function() {
 
     if (!photoEditorApp.currentLoadMethod) {
         photoEditorApp.currentLoadMethod = loadHeaderUserSection;
-        photoEditorApp.currentUnloadMethod = unloadHeaderUserSection;
+        photoEditorApp.currentUnloadMethod = redirectToHomePage;
     }
 
     function loadHeaderUserSection() {
@@ -45,12 +45,16 @@ $(function() {
         $("#loginUser").hide();
         $("#loginControls").show();
 
-        $("#userName1").text(""); // Name 
-        $("#userAvatar1").hide(); // Avatar
+        $("#userName1").text("");  
+        $("#userAvatar1").hide(); 
 
         $("#signInText").show();
         $("#login-dp").removeClass("hidden-menu").addClass("dropdown-menu");
         $("#features-dp").removeClass("dropdown-menu").addClass("hidden-menu");
+    }
+    
+    function redirectToHomePage() { 
+        $(location).attr('href', 'home');
     }
 
     $("#signInFB").on("click", function() {
@@ -92,7 +96,7 @@ $(function() {
                     $(".spinning-loader-container").hide();
                     console.log("Sign out successfully");
                     photoEditorApp.clear();
-                    window.location = "home.jsp";
+                    window.location = "home";
                 })
                 .fail(function(xhr, textStatus, errorThrown) {
                     $(".spinning-loader-container").hide();

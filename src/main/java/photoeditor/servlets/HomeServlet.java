@@ -16,26 +16,15 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import photoeditor.domainclasses.Photo;
 import photoeditor.services.PhotoService;
 
-@WebServlet("/review")
-public class ReviewServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/home"})
+public class HomeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	@Autowired
-    private PhotoService photoService;
-    
-    public ReviewServlet() {
+       	
+    public HomeServlet() {
         super();
     }
     
-    @Override
-    public void init() throws ServletException {
-    	 SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, getServletContext());
-    }
-    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int userId = (int)request.getSession(false).getAttribute("userId");
-		List<Photo> photos = photoService.findByUserId(userId);
-		request.setAttribute("photos", photos);
-		request.getRequestDispatcher("/WEB-INF/jsp/review.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
 	}
 }

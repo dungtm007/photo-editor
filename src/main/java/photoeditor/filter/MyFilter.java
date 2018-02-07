@@ -12,53 +12,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet Filter implementation class myFilter
- */
 
 @WebFilter(
 		filterName="myFilter",
-		urlPatterns= {"/editor.jsp","/review"}
-//		servletNames= {"ReviewServlet"}
+		urlPatterns= {"/editor","/review"}
 		)
 public class MyFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public MyFilter() {
-        // TODO Auto-generated constructor stub
-    }
+    public MyFilter() { }
 
-	/**
-	 * @see Filter#destroy()
-	 */
+    public void init(FilterConfig fConfig) throws ServletException {
+		
+	}
+    
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse res = (HttpServletResponse)response;
 		HttpSession session = req.getSession(false);
 		if(session == null) {
-			res.sendRedirect("home.jsp");
+			res.sendRedirect("home");
 			return;
 		} else {
 			chain.doFilter(request, response);
 		}
-	}
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }
