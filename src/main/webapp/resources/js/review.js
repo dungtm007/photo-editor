@@ -59,19 +59,19 @@ var popup = (function() {
         }
     }
 
-    function open($figure) {
-        var $popup = $('<div class="popup" />').appendTo($('body'));
-        var $fig = $figure.clone().appendTo($('.popup'));
-        $fig.attr("id", "figPopup");
-        var $bg = $('<div class="bg" />').appendTo($('.popup'));
-        var $shadow = $('<div class="shadow" />').appendTo($fig);
-        var $img = $('img', $fig);
-        var src = $img.attr('src');
-        $img.attr("id", "imgPopup");
-        $shadow.css({
+    function open(figure) {
+        var popup = $('<div class="popup" />').appendTo($('body'));
+        var fig = figure.clone().appendTo($('.popup'));
+        fig.attr("id", "figPopup");
+        var bg = $('<div class="bg" />').appendTo($('.popup'));
+        var shadow = $('<div class="shadow" />').appendTo(fig);
+        var img = $('img', fig);
+        var src = img.attr('src');
+        img.attr("id", "imgPopup");
+        shadow.css({
             backgroundImage: 'url(' + src + ')'
         });
-        $bg.css({
+        bg.css({
             backgroundImage: 'url(' + src + ')'
         });
         setTimeout(function() {
