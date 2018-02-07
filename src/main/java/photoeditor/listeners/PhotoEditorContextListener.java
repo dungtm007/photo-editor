@@ -23,7 +23,7 @@ public class PhotoEditorContextListener implements ServletContextListener {
 
 	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
-		tokenService.deleteAllInBatch();
+		// tokenService.deleteAllInBatch();
 		System.out.println("Servlet Context is destroyed....");
 	}
 	

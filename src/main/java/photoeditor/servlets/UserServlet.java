@@ -49,54 +49,32 @@ public class UserServlet extends HttpServlet {
 		writer.write("User Servlet");
 	}
     
-    private void doSignIn(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");
-		String errorMsg = "";
-		PrintWriter writer = response.getWriter();
-		
-		String oauthProvider = request.getParameter("oauthProvider");
-		String oauthUid = request.getParameter("oauthUid");
-		String displayName = request.getParameter("displayName");
-		String email = request.getParameter("email");
-		String photoUrl = request.getParameter("photoUrl");
-		String token = request.getParameter("token");
-		String fbToken = request.getParameter("fbToken");
-		
-		// Validate token validity according to Firebase
-		if (!TokenValidator.verifyTokenFromFirebase(token)) {
-			errorMsg = "Unauthorized or Invalid token";
-			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
-			return;
-		}
-		
+    private String doSignIn(HttpServletRequest request, String token, String oauthProvider, String oauthUid, String displayName, String email, String photoUrl, String fbToken) throws IOException {
+    	
 		User user = userService.findByOauthUid(oauthUid);
 		List<Token> activeTokens = tokenService.findByToken(token);
 		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
 		
+		// Validate token from our side (restrict a bad guy to send used token)
+		if (activeToken != null) {
+			int userId = (user != null) ?  user.getId() : -1;
+			if (!activeToken.isActive() || 
+				activeToken.getUserId() != userId || 
+				!TokenValidator.validate(activeToken, request)) {
+				return "{ \"result\":\"Error\", \"error\":\"Unauthorized or Invalid token\" }";
+			}				
+		}
+		
 		if(user == null) { // new user, new token
 			user = new User(oauthProvider, oauthUid, displayName, email, photoUrl);
 			userService.save(user);
-			activeToken = new Token(user.getId(), token, true);
-			activeToken.setOs(HeaderParser.getOs(request));
-			activeToken.setBrowser(HeaderParser.getBrowser(request));
-			activeToken.setIp(HeaderParser.getIp(request));
+			activeToken = new Token(user.getId(), token, true, HeaderParser.getOs(request), HeaderParser.getBrowser(request), HeaderParser.getIp(request));
 			tokenService.save(activeToken);
 		}
 		else { // existed user, update new token if needed
-			if (activeToken != null) {
-				if (activeToken.getUserId() != user.getId() || !TokenValidator.validate(activeToken, request)) {
-					errorMsg = "Unauthorized or Invalid token";
-					writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
-					return;
-				}				
-			}
-			else {
-				activeToken = new Token(user.getId(), token, true);
-				activeToken.setOs(HeaderParser.getOs(request));
-				activeToken.setBrowser(HeaderParser.getBrowser(request));
-				activeToken.setIp(HeaderParser.getIp(request));
-				tokenService.save(activeToken);				
+			if (activeToken == null) {
+				activeToken = new Token(user.getId(), token, true, HeaderParser.getOs(request), HeaderParser.getBrowser(request), HeaderParser.getIp(request));
+				tokenService.save(activeToken);						
 			}
 		}
 		
@@ -111,66 +89,76 @@ public class UserServlet extends HttpServlet {
 
 		JSONObject json = null;
 		try {
-			Object fbTokenObj = request.getSession(false).getAttribute("fbToken"); 
-			fbToken = fbTokenObj != null ? fbTokenObj.toString() : "";
+			if (fbToken == null) {
+				fbToken = "";
+			}
 			json = new JSONObject("{ 'result':'Success', 'userId':'" + user.getId() + "', 'fbToken':'" + fbToken + "' }");
 		} catch (JSONException e) {
-			errorMsg = "Cannot parse result";
 			e.printStackTrace();
 		}
-		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
+		return (json != null) ? json.toString() : "{ \"result\":\"Error\" }";
     }
     
-    private void doSignOut(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private String doSignOut(HttpServletRequest request, int userId, String token) throws IOException {
     	
-    	// Kill session
+    	// Kill current session
     	HttpSession session = request.getSession(false);
     	session.invalidate();
     	
-    	response.setContentType("application/json");
-		response.setCharacterEncoding("utf-8");	
-		String errorMsg = "";
-		PrintWriter writer = response.getWriter();
-		
-		// Verify 
-		int userId = Integer.parseInt(request.getParameter("userId"));
-		String token = request.getParameter("token");
-		
-		// Validate authorization
+		// Validate token from our side
 		List<Token> activeTokens = tokenService.findByToken(token);
 		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
 		
 		if (activeToken == null ||
 				!activeToken.isActive() ||
 				activeToken.getUserId() != userId || 
-				!TokenValidator.validate(activeToken, request) || 
-				!TokenValidator.verifyTokenFromFirebase(activeToken.getToken())) {
+				!TokenValidator.validate(activeToken, request)) {
+			return "{ \"result\":\"Error\", \"error\":\"Unauthorized or Invalid token\" }";
+		}
+		
+		JSONObject json = null;
+		try {
+			tokenService.deleteInBatch(activeTokens);
+			json = new JSONObject("{ 'result':'Success' }");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return (json != null) ? json.toString() : "{ \"result\":\"Error\" }";
+    }
+    
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		String errorMsg = "";
+		PrintWriter writer = response.getWriter();
+		
+		// Verify token against Firebase
+		String token = request.getParameter("token");
+		if (!TokenValidator.verifyTokenFromFirebase(token)) {
 			errorMsg = "Unauthorized or Invalid token";
 			writer.print("{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }");
 			return;
 		}
 		
-		tokenService.deleteInBatch(activeTokens);
-		
-		JSONObject json = null;
-		try {
-			json = new JSONObject("{ 'result':'Success' }");
-		} catch (JSONException e) {
-			errorMsg = "Cannot parse result";
-			e.printStackTrace();
-		}
-		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
-    }
-    
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		String action = request.getParameter("action");
-		if(action != null) {
-			if(action.toUpperCase().equals("SIGNIN")) {
-				doSignIn(request, response);
-			} else if(action.toUpperCase().equals("SIGNOUT")) {
-				doSignOut(request, response);
+		String result = "{ \"result\":\"Error\", \"error\": \"Unsupported action\" }";
+		
+		if (action != null) {
+			if (action.toUpperCase().equals("SIGNIN")) {
+				String oauthProvider = request.getParameter("oauthProvider");
+				String oauthUid = request.getParameter("oauthUid");
+				String displayName = request.getParameter("displayName");
+				String email = request.getParameter("email");
+				String photoUrl = request.getParameter("photoUrl");
+				String fbToken = request.getParameter("fbToken");
+				result = doSignIn(request, token, oauthProvider, oauthUid, displayName, email, photoUrl, fbToken);
+			} else if (action.toUpperCase().equals("SIGNOUT")) {
+				int userId = Integer.parseInt(request.getParameter("userId"));
+				result = doSignOut(request, userId, token);
 			}
 		}
+		
+		writer.print(result);
 	}
 }

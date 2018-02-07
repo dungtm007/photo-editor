@@ -26,7 +26,6 @@ public final class TokenValidator {
 		try {
 			URL filePath = TokenValidator.class.getResource("/photo-editor-11bc2-firebase-adminsdk-taa2f-914df805c5.json");
 			serviceAccount = new FileInputStream(filePath.getPath().replace("%20" , " "));
-			//serviceAccount = new FileInputStream(filePath.getPath());
 			options = new FirebaseOptions.Builder()
 					  .setCredentials(GoogleCredentials.fromStream(serviceAccount))
 					  .setDatabaseUrl("https://photo-editor-11bc2.firebaseio.com")

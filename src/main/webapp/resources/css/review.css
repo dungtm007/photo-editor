@@ -13,8 +13,6 @@
       flex-flow: row wrap;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
-          justify-content: space-between;
-  
 }
 
 .gallery figure {
