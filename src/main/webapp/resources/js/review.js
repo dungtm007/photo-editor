@@ -115,7 +115,6 @@ var popup = (function() {
             });
     }
 
-
     return {
         init: init,
         open: open,
@@ -125,3 +124,4 @@ var popup = (function() {
 })();
 
 popup.init();
+
