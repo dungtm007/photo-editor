@@ -17,15 +17,6 @@ function createCanvasImageData(imgElementId) {
 
 $(function() {
 
-    // Get FbToken from query string parameter
-    var urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('fbToken')) {
-        photoEditorApp.fbToken = urlParams.get('fbToken');
-        // Update link to 2 primary pages
-        $("#linkToReview").attr("href", "review?fbToken=" + photoEditorApp.fbToken);
-        $("#linkToEditor").attr("href", "editor.jsp?fbToken=" + photoEditorApp.fbToken);
-    }
-
     if (!photoEditorApp.currentLoadMethod) {
         photoEditorApp.currentLoadMethod = loadHeaderUserSection;
         photoEditorApp.currentUnloadMethod = unloadHeaderUserSection;
@@ -71,8 +62,6 @@ $(function() {
         firebase.auth().signInWithPopup(provider).then(function(result) {
             var fbToken = result.credential.accessToken;
             photoEditorApp.fbToken = fbToken;
-            $("#linkToReview").attr("href", "review?fbToken=" + photoEditorApp.fbToken);
-            $("#linkToEditor").attr("href", "editor.jsp?fbToken=" + photoEditorApp.fbToken);
             $(".spinning-loader-container").hide();
         }).catch(function(error) {
             $(".spinning-loader-container").hide();

@@ -2,10 +2,8 @@
 
 $(function() {
 
-    function redirectToEditor() {
-        setTimeout(function() {
-            $(location).attr('href', 'editor.jsp?fbToken=' + photoEditorApp.fbToken);
-        }, 400);
+    function redirectToEditor() { // currentLoadMethod for onAuthStateChanged event
+        $(location).attr('href', 'editor.jsp');
     }
 
     if (!photoEditorApp.currentPage && !photoEditorApp.currentLoadMethod) {
@@ -18,13 +16,9 @@ $(function() {
         var provider = new firebase.auth.FacebookAuthProvider();
         provider.addScope("publish_actions");
         firebase.auth().signInWithPopup(provider).then(function(result) {
-
             var fbToken = result.credential.accessToken;
             photoEditorApp.fbToken = fbToken;
-            $("#linkToReview").attr("href", "review?fbToken=" + photoEditorApp.fbToken);
-            $("#linkToEditor").attr("href", "editor.jsp?fbToken=" + photoEditorApp.fbToken);
             $(".spinning-loader-container").hide();
-
         }).catch(function(error) {
             $(".spinning-loader-container").hide();
             $.notify({

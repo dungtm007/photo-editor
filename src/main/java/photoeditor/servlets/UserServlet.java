@@ -83,14 +83,15 @@ public class UserServlet extends HttpServlet {
 		}
 		
 		request.getSession(false).setAttribute("userId", user.getId());
-		if (fbToken != null && !fbToken.isEmpty()) {
+		if (fbToken != null && !fbToken.isEmpty() && !fbToken.toLowerCase().equals("null")) {
 			request.getSession(false).setAttribute("fbToken", fbToken);	
 		}
 
 		JSONObject json = null;
 		try {
-			if (fbToken == null) {
-				fbToken = "";
+			Object fbTokenObj = request.getSession(false).getAttribute("fbToken");
+			if (fbTokenObj != null) {
+				fbToken = String.valueOf(fbTokenObj);
 			}
 			json = new JSONObject("{ 'result':'Success', 'userId':'" + user.getId() + "', 'fbToken':'" + fbToken + "' }");
 		} catch (JSONException e) {
