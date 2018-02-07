@@ -75,8 +75,8 @@ public class Photo {
 	}
 	
 	public String getCreatedFormat() {
-		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
-		return this.created.format(formatter);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern(formatString);
+		return String.format("Created Date: %s", this.created.format(formatter));
 	}
 
 	public void setCreated(LocalDateTime created) {
