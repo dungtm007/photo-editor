@@ -69,12 +69,18 @@ public class PhotoServlet extends HttpServlet {
 		return (json != null) ? json.toString() : "{ \"result\":\"Error\" }";
     }
     
-    private String deleteImage(int photoId) throws ServletException, IOException {
+    private String deleteImage(int userId, int photoId) throws ServletException, IOException {
     	
     	JSONObject json = null;
     	try {
-    		photoService.delete(photoId);
-			json = new JSONObject("{'result':'Success'}");
+    		Photo photo = photoService.find(photoId);
+    		if (photo != null && photo.getUserId() == userId) {
+    			photoService.delete(photoId);
+    			json = new JSONObject("{'result':'Success'}");
+    		}
+    		else {
+    			json = new JSONObject("{'result':'Error', 'error':'Photo does not exist or it's not your photo'}");	
+    		}
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -116,7 +122,7 @@ public class PhotoServlet extends HttpServlet {
 			}
 			else if (action.toUpperCase().equals("DELETE")) {
 				int photoId = Integer.parseInt(request.getParameter("id"));
-				result = deleteImage(photoId);
+				result = deleteImage(userId, photoId);
 			} 
 		}
 		
