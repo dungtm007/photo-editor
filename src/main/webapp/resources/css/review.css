@@ -62,7 +62,6 @@
   z-index: 2;
   border-radius: 15px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 6px 30px rgba(0, 0, 0, 0.4);
-  background-color: red;
 }
 .popup figure figcaption {
   position: absolute;
@@ -100,12 +99,11 @@
   opacity: .6;
   -webkit-filter: blur(15px) contrast(2);
           filter: blur(15px) contrast(2);
-          b
 }
 
-#photosContainer {
+/* #photosContainer {
     margin-left: -165px;
-}
+} */
 
 .downloadImgLeft {
 	float: left;
