@@ -8,5 +8,6 @@
 </head>
 <body>
 	<h1>Not Found 404</h1>
+	<p><a href="home.jsp">Go to the home page.</a></p>
 </body>
 </html>

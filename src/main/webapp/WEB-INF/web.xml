@@ -34,6 +34,10 @@
     <servlet-name>/ReviewServlet</servlet-name>
     <servlet-class>photoeditor.servlets.ReviewServlet</servlet-class>
   </servlet>
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/notfound.jsp</location>
+  </error-page>
 <!--   <filter>
     <display-name>myFilter</display-name>
     <filter-name>myFilter</filter-name>
