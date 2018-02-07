@@ -46,21 +46,57 @@ public class PhotoServlet extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    	// TODO Auto-generated method stub
-    	//super.doGet(req, resp);
     	System.out.println("photo do get");
     }
     
-    private void saveImage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	response.setContentType("application/json");
+    private String saveImage(int userId, int photoId, String photoTitle, String imageBase64) throws ServletException, IOException {
+    	
+		Photo photo = photoService.find(photoId);
+		if (photo == null) {
+			photo = new Photo(userId, imageBase64, photoTitle);
+		}
+		else {
+			photo.setImageData(imageBase64);
+		}
+		
+		JSONObject json = null;
+		try {
+			photoService.save(photo);
+			json = new JSONObject("{'result':'Success', 'photoId':'" + photo.getId() + "'}");
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return (json != null) ? json.toString() : "{ \"result\":\"Error\" }";
+    }
+    
+    private String deleteImage(int userId, int photoId) throws ServletException, IOException {
+    	
+    	JSONObject json = null;
+    	try {
+    		Photo photo = photoService.find(photoId);
+    		if (photo != null && photo.getUserId() == userId) {
+    			photoService.delete(photoId);
+    			json = new JSONObject("{'result':'Success'}");
+    		}
+    		else {
+    			json = new JSONObject("{'result':'Error', 'error':'Photo does not exist or it's not your photo'}");	
+    		}
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+    	return (json != null) ? json.toString() : "{ \"result\":\"Error\" }";
+    }
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.setContentType("application/json");
 		response.setCharacterEncoding("utf-8");	
 		String errorMsg = "";
 		PrintWriter writer = response.getWriter();
 		
+		// Validate token
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String token = request.getParameter("token");
-		
-		// Validate authorization
 		List<Token> activeTokens = tokenService.findByToken(token);
 		Token activeToken = (activeTokens != null && activeTokens.size() > 0) ? activeTokens.get(0) : null;
 		
@@ -74,45 +110,22 @@ public class PhotoServlet extends HttpServlet {
 			return;
 		}
 		
-		int photoId = Integer.parseInt(request.getParameter("photoId"));
-		String photoTitle = request.getParameter("photoTitle");
-		System.out.println(photoTitle);
-		//System.out.println(request.getParameter("imageData"));
-		String imageBase64 = request.getParameter("imageData");
-		
-		Photo photo = photoService.find(photoId);
-		if (photo == null) {
-			photo = new Photo(userId, imageBase64, photoTitle);
-		}
-		else {
-			photo.setImageData(imageBase64);
-		}
-		photoService.save(photo);
-
-		JSONObject json = null;
-		try {
-			json = new JSONObject("{'result':'Success', 'photoId':'" + photo.getId() + "'}");
-		} catch (JSONException e) {
-			errorMsg = "Cannot parse result";
-			e.printStackTrace();
-		}
-		writer.print((json == null) ? "{ \"result\":\"Error\", \"error\":\"" + errorMsg + "\" }" : json.toString());
-		
-    }
-    
-    private void deleteImage(HttpServletRequest request, HttpServletResponse response, int id) throws ServletException, IOException {
-    	photoService.delete(id);
-    }
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
+		String result = "{ \"result\":\"Error\", \"error\": \"Unsupported action\" }";
+		
 		if(action != null) {
-			if(action.toUpperCase().equals("DELETE")) {
-				int id = Integer.parseInt(request.getParameter("id"));
-				deleteImage(request, response, id);
+			if (action.toUpperCase().equals("POST")) {
+				int photoId = Integer.parseInt(request.getParameter("photoId"));
+				String photoTitle = request.getParameter("photoTitle");
+				String imageBase64 = request.getParameter("imageData");
+				result = saveImage(userId, photoId, photoTitle, imageBase64);
 			}
-		} else {
-			saveImage(request, response);
+			else if (action.toUpperCase().equals("DELETE")) {
+				int photoId = Integer.parseInt(request.getParameter("id"));
+				result = deleteImage(userId, photoId);
+			} 
 		}
+		
+		writer.print(result);
 	}
 }

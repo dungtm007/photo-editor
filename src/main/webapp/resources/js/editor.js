@@ -71,13 +71,14 @@ $(function() {
         $(".spinning-loader-container").show();
         var dataURL = createCanvasImageData("imageToEdit");
 
-        // Save user to DB
+        // Save photo to DB
         var data = {
             "userId": photoEditorApp.userId,
             "token": photoEditorApp.token,
-            "imageData": dataURL, // dataURL.split(',')[1],
+            "imageData": dataURL,
             "photoId": photoEditorApp.curPhotoId || -1,
-            "photoTitle": title
+            "photoTitle": title,
+            "action": "POST"
         };
 
         $.post("photo", data)

@@ -34,13 +34,13 @@ public class Token {
 		
 	}
 	
-	public Token(int userId, String token, String os, String browser, String ip, boolean isActive) {
+	public Token(int userId, String token, boolean isActive, String os, String browser, String ip) {
 		this.userId = userId;
 		this.token = token;
+		this.isActive = isActive;
 		this.os = os;
 		this.browser = browser;
 		this.ip = ip;
-		this.isActive = isActive;
 	}
 	
 	public Token(int userId, String token, boolean isActive) {

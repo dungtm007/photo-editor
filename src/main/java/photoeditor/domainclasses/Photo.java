@@ -22,7 +22,6 @@ public class Photo {
 	@Column(name="id")
 	private int id;
 	
-	//private byte[] imageData;
 	@Lob
 	//@Column(length=500000)
 	private String imageData;

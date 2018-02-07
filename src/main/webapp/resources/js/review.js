@@ -88,10 +88,14 @@ var popup = (function() {
 
     function deleteImg(id) {
     	
-        $.post("photo", {
-                "action": "DELETE",
-                "id": id
-            })
+    	var data = {
+            "userId": photoEditorApp.userId,
+            "token": photoEditorApp.token,
+            "id": id,
+            "action": "DELETE"
+        };
+    	
+        $.post("photo", data)
             .done(function(response) {
                 self.close();
                 $.notify({
