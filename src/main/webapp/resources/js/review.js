@@ -1,3 +1,5 @@
+'use strict';
+
 var popup = (function() {
 
     var self;
