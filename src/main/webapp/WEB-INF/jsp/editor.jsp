@@ -17,6 +17,10 @@
 			</div>
 			
 			<main>
+				<div id="uploadImageHint">
+                    <p>Upload your image to start editing<p/>
+                </div>
+                
 				<div id="editor">
 					<div>
 						<ul id="editMode">

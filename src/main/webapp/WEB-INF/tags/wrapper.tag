@@ -48,15 +48,14 @@
 		<!-- Other less important tools -->
 		<script src="<c:url value='/resources/js/bootstrap-notify.min.js'/>"></script>
 		
-		<!-- Common js (handle header, login section, etc.) -->
-		<script src="<c:url value='/resources/js/common.js'/>"></script>
-		
 		<!-- Application's FireBase -->
 		<script src="<c:url value='/resources/js/firebase.js'/>"></script>
 		
+		<!-- Common js (handle header, login section, etc.) -->
+		<script src="<c:url value='/resources/js/common.js'/>"></script>
+		
 		<!-- Application's CSS -->
 		<link rel="stylesheet" href="<c:url value='/resources/css/common.css'/>" />
-		
 		
 	</head>
 	<body>

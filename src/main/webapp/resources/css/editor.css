@@ -229,3 +229,17 @@ input[type='range'] {
 }
 
 
+#uploadImageHint {
+	border: 2px dotted #999;
+    height: 395px;
+    margin-top: 50px;
+    padding-top: 150px;
+    opacity: 0.7;
+}
+
+#uploadImageHint p {
+	font-size: 30pt;
+	text-align: center;
+	margin-left: -160px;
+	color: #999;
+}

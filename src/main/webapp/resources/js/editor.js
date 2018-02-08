@@ -165,6 +165,7 @@ $(function() {
     $("#imageToEdit").on("load", function() {
 
         loadBackgroundToSamples();
+        $("#uploadImageHint").hide();
         $("#imageToEdit").show();
         $("#editor").show();
         $(".spinning-loader-container").hide();
