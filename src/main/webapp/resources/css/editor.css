@@ -36,9 +36,8 @@ h1 {
 }
 
 #imageToEdit {
-	/*height: 590px;*/
 	display: none;
-	width: 68%;
+	width: 67%;
 }
 
 canvas {
