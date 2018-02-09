@@ -60,7 +60,7 @@ $(function() {
                         photoEditorApp.currentUnloadMethod();
                     }
                 }
-        	}, 400);
+        	}, 500);
         	
         }, function(error) {
             console.log(error);
